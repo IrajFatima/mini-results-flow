@@ -1,0 +1,37 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+main, body {
+  font-family: "Inter", sans-serif;
+  background-color: #f8f4f4;
+  color: black;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.dark main ,.dark body {
+  background-color: #181A1B;
+  color: white;
+}
+
+
+.label{
+  color: #36BC9F;
+}
+.dots{
+  color:#d8d8d8;
+}
+
+.teal{
+  color: #183B49;
+}
+.highlight{
+  color: #F75950
+}
+
+.cta {
+  background-color: #36BC9F;
+  color: #FFFFFF;
+}
