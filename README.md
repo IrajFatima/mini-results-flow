@@ -11,7 +11,7 @@
 
 > A React-based multi-step conversion funnel that transforms user health metrics into personalized insight cards and a high-converting sales page. Features responsive design, state persistence, smooth animations, and a realistic conversion experience with dynamic countdown timers and sticky CTAs.
 
-**[🚀 Live Demo](https://mini-results-flow-two.vercel.app/)**
+**[🚀 Live Demo](https://mini-results-flow-pi.vercel.app/)**
 
 ---
 
@@ -300,7 +300,7 @@ npm run test:watch    # Watch mode during development
 
 The app is deployed on **Vercel**:
 
-**🚀 Live:** https://mini-results-flow-two.vercel.app/
+**🚀 Live:** https://mini-results-flow-pi.vercel.app/
 
 To deploy your own version:
 
@@ -369,7 +369,7 @@ Created by [IrajFatima](https://github.com/IrajFatima)
 
 **Questions or Feedback?** 
 - 🐛 [Open an issue](https://github.com/IrajFatima/mini-results-flow/issues) on GitHub
-- 🚀 Check out the [live demo](https://mini-results-flow-two.vercel.app/)
+- 🚀 Check out the [live demo](https://mini-results-flow-pi.vercel.app/)
 - ⭐ Give us a star if you found this useful!
 
 ---
@@ -378,6 +378,6 @@ Created by [IrajFatima](https://github.com/IrajFatima)
 
 **Made with ❤️ by [IrajFatima](https://github.com/IrajFatima)**
 
-[![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?style=flat&logo=vercel)](https://mini-results-flow-two.vercel.app/)
+[![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?style=flat&logo=vercel)](https://mini-results-flow-pi.vercel.app/)
 
 </div>
