@@ -9,4 +9,5 @@ export interface ResultCard {
     paragraph1:string,
     paragraph2:string,
     callout: string,
+    alt:string,
 }

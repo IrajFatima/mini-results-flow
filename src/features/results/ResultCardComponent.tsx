@@ -52,7 +52,7 @@ function ResultCardComponent({ resultCard }: Props) {
                 <div className="text-center text-[#183B49] dark:text-white text-[20px] font-semibold my-3">{resultCard.subHeaderText}</div>
             </div>
             <div className="flex items-center justify-center">
-                <img src={imageSrc} className="w-full max-w-[300px] h-auto object-contain" loading="lazy"/>
+                <img src={imageSrc} className="w-full max-w-[300px] h-auto object-contain" loading="lazy" alt={resultCard.alt}/>
             </div>
             <div className="text-[#13556F] md:p-6 p-1 py-6 text-[22px] dark:text-[#A7C2C9] leading-[1.4em]">
                 <p>{resultCard.paragraph1}</p><br />
