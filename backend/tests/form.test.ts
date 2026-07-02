@@ -14,7 +14,7 @@ describe("POST /api/form", () => {
 
     it("should create a form successfully", async () => {
         mockedFormRepository.createForm.mockResolvedValue({
-            id: 1,
+            id: "1",
         });
 
         const response = await request(app)
@@ -34,7 +34,7 @@ describe("POST /api/form", () => {
         expect(response.body).toEqual({
             success: true,
             message: "Form submitted successfully.",
-            id: 1,
+            id: "1",
         });
     });
 
@@ -73,15 +73,21 @@ describe("GET /api/form/:id", () => {
 
     it("should return form data", async () => {
         mockedFormRepository.getFormById.mockResolvedValue({
-            id: 1,
+            id: "1",
             gender: "male",
+            body_fat_percent: 20,
+            bmi: 25,
+            calorie_target: 2200,
+            water_intake: 3,
+            weight_loss_rate: 1,
+            see_results_days: 30,
         });
 
         const response = await request(app).get("/api/form/1");
 
         expect(response.status).toBe(200);
         expect(response.body.success).toBe(true);
-        expect(response.body.data.id).toBe(1);
+        expect(response.body.data.id).toBe("1");
     });
 
     it("should return 500 when repository throws", async () => {
@@ -102,7 +108,7 @@ describe("DELETE /api/form/:id", () => {
 
     it("should delete form", async () => {
         mockedFormRepository.deleteFormById.mockResolvedValue({
-            id: 1,
+            id: "1",
         });
 
         const response = await request(app).delete("/api/form/1");

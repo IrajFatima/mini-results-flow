@@ -10,6 +10,7 @@ import {
 } from "../utils/resultHelpers";
 
 interface FormRow {
+    id: string;
     gender: string;
     body_fat_percent: number;
     bmi: number;
@@ -19,20 +20,36 @@ interface FormRow {
     see_results_days: number;
 }
 
-const getResult = async (id: string): Promise<any[] | null> => {
+interface ResultCard {
+    id: number;
+    title: string;
+    headerEmoji: string;
+    headerText: string;
+    highlightText: string;
+    subHeaderText: string;
+    image: string;
+    paragraph1: string;
+    paragraph2: string;
+    callout: string;
+    alt: string;
+}
+
+const getResult = async (
+    id: string
+): Promise<ResultCard[] | null> => {
     const query = `
         SELECT *
         FROM form_data
         WHERE id = $1
     `;
 
-    const result = await db.query(query, [id]);
+    const result = await db.query<FormRow>(query, [id]);
 
     if (result.rows.length === 0) {
         return null;
     }
 
-    const formData = result.rows[0] as FormRow;
+    const formData = result.rows[0];
 
     return [
         {
@@ -49,7 +66,7 @@ const getResult = async (id: string): Promise<any[] | null> => {
                 "Too much stored fat doesn’t just affect how you look — it impacts your energy, hormone balance, and ability to burn fat efficiently.",
             callout: getBodyFatCallout(
                 formData.gender,
-                Number(formData.body_fat_percent)
+                formData.body_fat_percent
             ),
             alt: "Body Fat Percentage",
         },
@@ -65,7 +82,7 @@ const getResult = async (id: string): Promise<any[] | null> => {
                 "BMI (Body Mass Index) is a quick way to estimate how your weight might affect your health based on your height and weight.",
             paragraph2:
                 "When your BMI is too high, your body may store more fat than it uses. That can slow your metabolism, drain your energy, and make fat loss harder — even if you’re putting in effort.",
-            callout: getBMICallout(Number(formData.bmi)),
+            callout: getBMICallout(formData.bmi),
             alt: "Body Mass Index",
         },
         {
@@ -80,7 +97,7 @@ const getResult = async (id: string): Promise<any[] | null> => {
                 "Your body burns calories just to stay alive — that’s your BMR. Add in movement, and you burn even more. Eat less than you burn? You lose weight. Eat more? You store it. Simple math, but the type of calories still makes or breaks your results.",
             paragraph2:
                 "Most people eat low-quality calories that spike cravings, crash energy, and cause fat to stick — even if they’re technically under their daily limit.",
-            callout: getCaloriesCallout(Number(formData.calorie_target)),
+            callout: getCaloriesCallout(formData.calorie_target),
             alt: "Calorie Intake",
         },
         {
@@ -95,7 +112,7 @@ const getResult = async (id: string): Promise<any[] | null> => {
                 "Hydration is a fat-burning multiplier. Without enough water, your body holds onto toxins, slows digestion, and burns fat less efficiently.",
             paragraph2:
                 "Even mild dehydration can feel like fatigue, hunger, or sugar cravings. You're not lazy — you're likely underhydrated.",
-            callout: getWaterCallout(Number(formData.water_intake)),
+            callout: getWaterCallout(formData.water_intake),
             alt: "Hydration",
         },
         {
