@@ -1,6 +1,19 @@
-const db = require("../database/db");
+import db from "../database/db";
 
-const createForm = async (formData) => {
+interface FormData {
+    gender: string;
+    bodyFatPercent: number;
+    BMI: number;
+    calorieTarget: number;
+    waterIntake: number;
+    weightLossRate: number;
+    seeResultsDays: number;
+}
+
+interface InsertedForm {
+    id: number;
+}
+const createForm = async (formData: FormData): Promise<InsertedForm> => {
     const query = `
         INSERT INTO form_data (
             gender,
@@ -29,21 +42,21 @@ const createForm = async (formData) => {
     return result.rows[0];
 };
 
-const getFormById = async (id) => {
+const getFormById = async (id: string): Promise<any | null> => {
     const query = "SELECT * FROM form_data WHERE id = $1";
 
     const result = await db.query(query, [id]);
     return result.rows[0] || null;
 };
 
-const deleteFormById = async (id) => {
+const deleteFormById = async (id: string): Promise<InsertedForm | null> => {
     const query = "DELETE FROM form_data WHERE id = $1 RETURNING id";
 
     const result = await db.query(query, [id]);
     return result.rows[0] || null;
 };
 
-module.exports = {
+export {
     createForm,
     getFormById,
     deleteFormById,

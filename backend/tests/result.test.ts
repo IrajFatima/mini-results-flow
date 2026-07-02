@@ -1,19 +1,19 @@
-const request = require("supertest");
-const app = require("../app");
+import request from "supertest";
 
-const resultRepository = require("../repositories/resultRepository");
+import app from "../app";
+import * as resultRepository from "../repositories/resultRepository";
 
 jest.mock("../repositories/resultRepository");
 
-describe("GET /api/result/:id", () => {
+const mockedResultRepository = jest.mocked(resultRepository);
 
+describe("GET /api/result/:id", () => {
     afterEach(() => {
         jest.clearAllMocks();
     });
 
     it("should return result cards successfully", async () => {
-
-        resultRepository.getResult.mockResolvedValue([
+        mockedResultRepository.getResult.mockResolvedValue([
             {
                 id: 1,
                 title: "Body Fat %",
@@ -26,8 +26,7 @@ describe("GET /api/result/:id", () => {
             },
         ]);
 
-        const response = await request(app)
-            .get("/api/result/1");
+        const response = await request(app).get("/api/result/1");
 
         expect(response.status).toBe(200);
 
@@ -47,15 +46,13 @@ describe("GET /api/result/:id", () => {
             ],
         });
 
-        expect(resultRepository.getResult).toHaveBeenCalledWith("1");
+        expect(mockedResultRepository.getResult).toHaveBeenCalledWith("1");
     });
 
     it("should return 404 when result is not found", async () => {
+        mockedResultRepository.getResult.mockResolvedValue(null);
 
-        resultRepository.getResult.mockResolvedValue(null);
-
-        const response = await request(app)
-            .get("/api/result/999");
+        const response = await request(app).get("/api/result/999");
 
         expect(response.status).toBe(404);
 
@@ -64,17 +61,15 @@ describe("GET /api/result/:id", () => {
             message: "Result not found.",
         });
 
-        expect(resultRepository.getResult).toHaveBeenCalledWith("999");
+        expect(mockedResultRepository.getResult).toHaveBeenCalledWith("999");
     });
 
     it("should return 500 when repository throws an error", async () => {
-
-        resultRepository.getResult.mockRejectedValue(
+        mockedResultRepository.getResult.mockRejectedValue(
             new Error("Database Error")
         );
 
-        const response = await request(app)
-            .get("/api/result/1");
+        const response = await request(app).get("/api/result/1");
 
         expect(response.status).toBe(500);
 
@@ -83,7 +78,6 @@ describe("GET /api/result/:id", () => {
             message: "Internal server error.",
         });
 
-        expect(resultRepository.getResult).toHaveBeenCalledWith("1");
+        expect(mockedResultRepository.getResult).toHaveBeenCalledWith("1");
     });
-
 });

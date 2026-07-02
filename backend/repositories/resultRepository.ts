@@ -1,14 +1,25 @@
-const db = require("../database/db");
-const {
+import db from "../database/db";
+
+import {
     getBodyFatCallout,
     getBMICallout,
     getCaloriesCallout,
     getWaterCallout,
     getWeightLossCallout,
     getResultDaysCallout,
-} = require("../utils/resultHelpers");
+} from "../utils/resultHelpers";
 
-const getResult = async (id) => {
+interface FormRow {
+    gender: string;
+    body_fat_percent: number;
+    bmi: number;
+    calorie_target: number;
+    water_intake: number;
+    weight_loss_rate: number;
+    see_results_days: number;
+}
+
+const getResult = async (id: string): Promise<any[] | null> => {
     const query = `
         SELECT *
         FROM form_data
@@ -21,7 +32,7 @@ const getResult = async (id) => {
         return null;
     }
 
-    const formData = result.rows[0];
+    const formData = result.rows[0] as FormRow;
 
     return [
         {
@@ -120,6 +131,4 @@ const getResult = async (id) => {
     ];
 };
 
-module.exports = {
-    getResult,
-};
+export { getResult };

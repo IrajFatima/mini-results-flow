@@ -1,6 +1,10 @@
-const formRepository = require("../repositories/formRepository");
+import { Request, Response } from "express";
 
-const submitForm = async (req, res) => {
+import * as formRepository from "../repositories/formRepository";
+interface FormParams {
+    id: string;
+}
+const submitForm = async (req: Request, res: Response): Promise<void> => {
     try {
         const {
             gender,
@@ -21,10 +25,11 @@ const submitForm = async (req, res) => {
             weightLossRate == null ||
             seeResultsDays == null
         ) {
-            return res.status(400).json({
+            res.status(400).json({
                 success: false,
                 message: "All fields are required.",
             });
+            return;
         }
 
         const insertedForm = await formRepository.createForm({
@@ -44,6 +49,7 @@ const submitForm = async (req, res) => {
         });
     } catch (error) {
         console.error("Error submitting form:", error);
+
         res.status(500).json({
             success: false,
             message: "An error occurred while submitting the form.",
@@ -51,24 +57,29 @@ const submitForm = async (req, res) => {
     }
 };
 
-const getFormData = async (req, res) => {
+const getFormData = async (
+    req: Request<FormParams>,
+    res: Response
+): Promise<void> => {
     try {
         const { id } = req.params;
 
         if (!id) {
-            return res.status(400).json({
+            res.status(400).json({
                 success: false,
                 message: "ID parameter is required.",
             });
+            return;
         }
 
         const form = await formRepository.getFormById(id);
 
         if (!form) {
-            return res.status(404).json({
+            res.status(404).json({
                 success: false,
                 message: "Form Data not found.",
             });
+            return;
         }
 
         res.status(200).json({
@@ -77,6 +88,7 @@ const getFormData = async (req, res) => {
         });
     } catch (error) {
         console.error("Error fetching Form Data:", error);
+
         res.status(500).json({
             success: false,
             message: "An error occurred while fetching the Form Data.",
@@ -84,24 +96,29 @@ const getFormData = async (req, res) => {
     }
 };
 
-const deleteFormData = async (req, res) => {
+const deleteFormData = async (
+    req: Request<FormParams>,
+    res: Response
+): Promise<void> => {
     try {
         const { id } = req.params;
 
         if (!id) {
-            return res.status(400).json({
+            res.status(400).json({
                 success: false,
                 message: "ID parameter is required.",
             });
+            return;
         }
 
         const deletedForm = await formRepository.deleteFormById(id);
 
         if (!deletedForm) {
-            return res.status(404).json({
+            res.status(404).json({
                 success: false,
                 message: "Form Data not found.",
             });
+            return;
         }
 
         res.status(200).json({
@@ -110,6 +127,7 @@ const deleteFormData = async (req, res) => {
         });
     } catch (error) {
         console.error("Error deleting Form Data:", error);
+
         res.status(500).json({
             success: false,
             message: "An error occurred while deleting the Form Data.",
@@ -117,7 +135,7 @@ const deleteFormData = async (req, res) => {
     }
 };
 
-module.exports = {
+export {
     submitForm,
     getFormData,
     deleteFormData,

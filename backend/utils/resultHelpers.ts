@@ -1,4 +1,7 @@
-const getBodyFatCallout = (gender, bodyFatPercent) => {
+const getBodyFatCallout = (
+    gender: string,
+    bodyFatPercent: number
+): string => {
     if (gender === "male") {
         if (bodyFatPercent < 32) {
             return "Your current level may be slowing metabolism, increasing inflammation, or making it harder to stay consistent with workouts.";
@@ -14,7 +17,7 @@ const getBodyFatCallout = (gender, bodyFatPercent) => {
     return "At this level, your body may be stuck in a constant state of inflammation and energy imbalance — making fat loss harder, appetite less predictable, and progress feel like a constant uphill battle.";
 };
 
-const getBMICallout = (BMI) => {
+const getBMICallout = (BMI: number): string => {
     if (BMI < 30) {
         return "You’re right on the edge — just a few small shifts could unlock better energy and faster fat-burning.";
     }
@@ -26,7 +29,7 @@ const getBMICallout = (BMI) => {
     return "This BMI range often comes with deeper challenges, like insulin resistance and chronic fatigue — but with the right plan, you can absolutely turn things around.";
 };
 
-const getCaloriesCallout = (calories) => {
+const getCaloriesCallout = (calories: number): string => {
     if (calories < 1100) {
         return "Extreme restriction can backfire — slowing your metabolism, increasing stress, and making results harder to sustain. Keto helps you eat smarter, not just less.";
     }
@@ -42,7 +45,7 @@ const getCaloriesCallout = (calories) => {
     return "";
 };
 
-const getWaterCallout = (water) => {
+const getWaterCallout = (water: number): string => {
     if (water === 1) {
         return "Only Drinking Coffee or Tea? Caffeine doesn’t hydrate — in fact, it can dehydrate you. Adding just a few glasses of water each day could dramatically boost your energy and fat-burning.";
     }
@@ -58,15 +61,15 @@ const getWaterCallout = (water) => {
     return "Drinking over 6 glasses a day? Nice work — your hydration game is strong. Keep it up to support optimal fat loss, steady energy, and fewer cravings.";
 };
 
-const getWeightLossCallout = () => {
+const getWeightLossCallout = (): string => {
     return "With your numbers, results could show up even faster than expected, but only if your metabolism is dialed in and you’re burning fat, not sugar.";
 };
 
-const getResultDaysCallout = () => {
+const getResultDaysCallout = (): string => {
     return "You’re already aware — and that’s step one. Now imagine pairing that awareness with a plan that shows results in the mirror by day 10.";
 };
 
-module.exports = {
+export {
     getBodyFatCallout,
     getBMICallout,
     getCaloriesCallout,
