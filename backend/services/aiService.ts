@@ -23,12 +23,18 @@ export interface RecommendationInput {
 
 export const generateRecommendations = async (
     userData: RecommendationInput
-): Promise<string> => {
+): Promise<any> => {
     const prompt = buildRecommendationPrompt(userData);
 
     const response = await ai.models.generateContent({
         model: process.env.AI_MODEL || "gemini-2.5-flash",
         contents: prompt,
     });
-    return JSON.parse(response.text ?? "{}");
+
+    try {
+        return JSON.parse(response.text ?? "{}");
+    } catch (error) {
+        console.error("Failed to parse AI response:", response.text);
+        throw new Error("AI returned an invalid JSON response.");
+    }
 };

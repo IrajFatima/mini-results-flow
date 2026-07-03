@@ -31,12 +31,7 @@ export default function AIRecommendationsPage() {
             try {
                 const response = await getAIRecommendations();
                 // If backend returns a JSON string
-                const parsed =
-                    typeof response.recommendations === "string"
-                        ? JSON.parse(response)
-                        : response;
-
-                setReport(parsed);
+                setReport(response);
             } catch (error) {
                 console.error(error);
             } finally {
