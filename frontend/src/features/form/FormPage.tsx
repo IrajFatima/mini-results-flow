@@ -22,7 +22,11 @@ function FormPage() {
         e.preventDefault();
         setLoading(true);
         try {
-            await submitForm(formData);
+            const savedFormId = getFormId();
+
+            if (!savedFormId) {
+                await submitForm(formData);
+            }
             navigate("/results");
         } catch (error) {
             console.error("Error submitting form:", error);

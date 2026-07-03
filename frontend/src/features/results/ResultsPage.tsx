@@ -5,6 +5,7 @@ import ResultCardComponent from "./ResultCardComponent";
 import { IoArrowBack, IoArrowForward } from "react-icons/io5";
 import { AnimatePresence } from "framer-motion";
 import { getResultData } from "../../services/result";
+import { getAIRecommendations } from "../../services/ai";
 import { toast } from "react-toastify";
 
 function ResultsPage() {
@@ -39,6 +40,19 @@ function ResultsPage() {
         };
 
         loadResultData();
+    }, []);
+    useEffect(() => {
+        const AIRecommendations = async () => {
+            try {
+                const data = await getAIRecommendations();
+                console.log("ai: ", data);
+                // setCards(data);
+            } catch (error) {
+                console.error("Error fetching ai recommendations:", error);
+            }
+        };
+
+        AIRecommendations();
     }, []);
     if (loading) {
         return (
