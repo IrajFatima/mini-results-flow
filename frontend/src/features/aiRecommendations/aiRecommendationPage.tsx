@@ -13,10 +13,6 @@ import type { JSX } from "react/jsx-runtime";
 import type { AIRecommendation } from "../../types/aiRecommendation";
 import { useEffect, useState } from "react";
 import { getAIRecommendations } from "../../services/ai";
-import { toast } from "react-toastify";
-
-
-
 
 const iconMap: Record<string, JSX.Element> = {
     Nutrition: <FaAppleAlt className="text-2xl text-green-500" />,
@@ -34,7 +30,6 @@ export default function AIRecommendationsPage() {
         const loadRecommendations = async () => {
             try {
                 const response = await getAIRecommendations();
-                console.log("data: ", response);
                 // If backend returns a JSON string
                 const parsed =
                     typeof response.recommendations === "string"
