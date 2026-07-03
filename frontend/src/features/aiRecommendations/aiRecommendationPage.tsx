@@ -103,7 +103,7 @@ export default function AIRecommendationsPage() {
         emoji: "ℹ️",
     };
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-[#1b1d1e] py-10">
+        <div className="min-h-screen bg-[#F8F4F4] dark:bg-[#1b1d1e] py-10">
             <div className="max-w-6xl mx-auto px-4">
 
                 {/* Header */}

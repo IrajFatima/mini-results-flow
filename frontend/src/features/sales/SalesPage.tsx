@@ -51,7 +51,18 @@ function SalesPage() {
                                 animate={{ y: 0, opacity: 1 }}
                                 exit={{ y: 100, opacity: 0 }}
                                 transition={{ duration: 0.35 }}
-                                className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-xl px-4 pointer-events-none"
+                                className="
+                                    fixed
+                                    bottom-4
+                                    left-1/2
+                                    md:left-[calc(50%+8rem)]
+                                    -translate-x-1/2
+                                    z-50
+                                    w-full
+                                    max-w-xl
+                                    px-4
+                                    pointer-events-none
+                                    "
                             >
                                 <button
                                     onClick={() =>
