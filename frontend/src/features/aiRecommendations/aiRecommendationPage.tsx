@@ -22,7 +22,7 @@ const iconMap: Record<string, JSX.Element> = {
     Consistency: <FaBullseye className="text-2xl text-red-500" />,
 };
 
-export default function AIRecommendationsPage() {
+export default function AIRecommendationPage() {
     const [report, setReport] = useState<AIRecommendation | null>(null);
     const [loading, setLoading] = useState(true);
 
