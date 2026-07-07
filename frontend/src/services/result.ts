@@ -3,7 +3,6 @@ import { getFormId } from "../utils/localStorage";
 
 export const getResultData = async (formId?: string) => {
     try {
-        console.log("form id in service form.ts",formId)
         const id = formId ?? getFormId();
 
         if (!id) {

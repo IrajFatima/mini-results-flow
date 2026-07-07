@@ -19,10 +19,8 @@ function ResultsPage() {
     const next = () => {
         if (cIndex === cards.length - 1) {
             if (formId) {
-                console.log("iddd:v ",formId);
                 navigate(-1);
             } else {
-                console.log("iddd:v ",formId);
                 navigate("/sales");
             }
 
