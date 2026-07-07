@@ -4,7 +4,8 @@ import { FaCheck } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { deleteFormData } from "../../services/form";
+// import { deleteFormData } from "../../services/form";
+import { removeFormId } from "../../utils/localStorage";
 
 function SalesPage() {
     const [selectedPlan, setSelectedPlan] = useState<"installments" | "discount">("discount");
@@ -36,6 +37,7 @@ function SalesPage() {
 
         return () => document.removeEventListener("scroll", handleScroll, { capture: true });
     }, []);
+
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
 
@@ -389,7 +391,8 @@ function SalesPage() {
                                 <FaArrowRight className="absolute right-5 top-1/2 -translate-y-1/2 text-lg" />
                             </button>
                             <div onClick={async () => {
-                                await deleteFormData();
+                                // await deleteFormData();
+                                removeFormId();
                                 navigate('/');
                             }} className="text-[#0e485c] dark:text-white md:text-lg text-center mt-3 cursor-pointer"><u>No Thanks, I don’t want my plan.</u></div>
                         </div>

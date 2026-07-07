@@ -20,6 +20,10 @@ describe("POST /api/form", () => {
         const response = await request(app)
             .post("/api/form")
             .send({
+                user_id: null,
+                is_anonymous: true,
+                anonymous_session_id: null,
+                created_at: new Date(),
                 gender: "male",
                 bodyFatPercent: 20,
                 BMI: 25,
@@ -73,6 +77,10 @@ describe("GET /api/form/:id", () => {
 
     it("should return form data", async () => {
         mockedFormRepository.getFormById.mockResolvedValue({
+            user_id: null,              
+            is_anonymous: true,          
+            anonymous_session_id: null,  
+            created_at: new Date(),
             id: "1",
             gender: "male",
             body_fat_percent: 20,

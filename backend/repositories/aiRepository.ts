@@ -3,8 +3,9 @@ import {
     generateRecommendations,
     RecommendationInput,
 } from "../services/aiService";
+import type { AIRecommendation } from "../services/aiService";
 
-const getAIRecommendations = async (id: string): Promise<string> => {
+const getAIRecommendations = async (id: string): Promise<AIRecommendation> => {
     const form = await formRepository.getFormById(id);
 
     if (!form) {

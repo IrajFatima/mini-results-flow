@@ -6,7 +6,7 @@ import { submitForm, getFormData } from "../../services/form"
 import { defaultFormData } from "../../utils/defaultFormData"
 import { toast } from "react-toastify";
 import { getFormId } from "../../utils/localStorage";
-
+import axios from "axios";
 
 function FormPage() {
     const [formData, setFormData] = useState({ ...defaultFormData });
@@ -25,8 +25,18 @@ function FormPage() {
             await submitForm(formData);
             navigate("/results");
         } catch (error) {
-            console.error("Error submitting form:", error);
-            toast.error("An error occurred while submitting the form. Please try again.");
+            console.error(error);
+
+            if (axios.isAxiosError(error)) {
+                toast.error(
+                    error.response?.data?.message ??
+                    "An error occurred while submitting the form."
+                );
+            } else {
+                toast.error(
+                    "An error occurred while submitting the form."
+                );
+            }
         } finally {
             setLoading(false);
         }

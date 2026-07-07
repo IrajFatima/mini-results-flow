@@ -1,5 +1,13 @@
-import { NavLink } from "react-router-dom";
-import { FaClipboardList, FaRobot } from "react-icons/fa";
+import { NavLink,useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import {
+    FaClipboardList,
+    FaRobot,
+    FaSignInAlt,
+    FaUserPlus,
+    FaTachometerAlt,
+    FaSignOutAlt,
+} from "react-icons/fa";
 
 type SidebarProps = {
     open: boolean;
@@ -10,6 +18,15 @@ export default function Sidebar({
     open,
     onClose,
 }: SidebarProps) {
+    const navigate = useNavigate();
+
+    const { isAuthenticated, logout } = useAuth();
+
+    const handleLogout = () => {
+        logout();
+        navigate("/login");
+        onClose();
+    };
     return (
         <>
             {/* Backdrop */}
@@ -70,6 +87,61 @@ export default function Sidebar({
                         <FaRobot />
                         <span>AI Recommendations</span>
                     </NavLink>
+                    {!isAuthenticated ? (
+                        <>
+                            <NavLink
+                                to="/login"
+                                onClick={onClose}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-3 rounded-lg px-4 py-3 transition ${isActive
+                                        ? "bg-[#36BC9F] text-white"
+                                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2d3031]"
+                                    }`
+                                }
+                            >
+                                <FaSignInAlt />
+                                <span>Login</span>
+                            </NavLink>
+
+                            <NavLink
+                                to="/signup"
+                                onClick={onClose}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-3 rounded-lg px-4 py-3 transition ${isActive
+                                        ? "bg-[#36BC9F] text-white"
+                                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2d3031]"
+                                    }`
+                                }
+                            >
+                                <FaUserPlus />
+                                <span>Signup</span>
+                            </NavLink>
+                        </>
+                    ) : (
+                        <>
+                            <NavLink
+                                to="/dashboard"
+                                onClick={onClose}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-3 rounded-lg px-4 py-3 transition ${isActive
+                                        ? "bg-[#36BC9F] text-white"
+                                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2d3031]"
+                                    }`
+                                }
+                            >
+                                <FaTachometerAlt />
+                                <span>Dashboard</span>
+                            </NavLink>
+
+                            <button
+                                onClick={handleLogout}
+                                className="flex items-center gap-3 rounded-lg px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2d3031] transition w-full text-left"
+                            >
+                                <FaSignOutAlt />
+                                <span>Logout</span>
+                            </button>
+                        </>
+                    )}
                 </nav>
             </aside>
         </>
