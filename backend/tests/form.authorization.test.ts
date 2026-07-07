@@ -1,8 +1,9 @@
+import { Request, Response } from "express";
 import { authorize } from "../middleware/authorize";
 
 describe("authorize middleware", () => {
-    let req: any;
-    let res: any;
+    let req: Partial<Request>;
+    let res: Partial<Response>;
     let next: jest.Mock;
 
     beforeEach(() => {
@@ -23,7 +24,11 @@ describe("authorize middleware", () => {
                 role: "admin",
             };
 
-            authorize("admin")(req, res, next);
+            authorize("admin")(
+                req as Request,
+                res as Response,
+                next
+            );
 
             expect(next).toHaveBeenCalled();
             expect(res.status).not.toHaveBeenCalled();
@@ -35,7 +40,11 @@ describe("authorize middleware", () => {
                 role: "user",
             };
 
-            authorize("admin")(req, res, next);
+            authorize("admin")(
+                req as Request,
+                res as Response,
+                next
+            );
 
             expect(res.status).toHaveBeenCalledWith(403);
             expect(res.json).toHaveBeenCalledWith({
@@ -55,7 +64,11 @@ describe("authorize middleware", () => {
                 role: "user",
             };
 
-            authorize("user")(req, res, next);
+            authorize("user")(
+                req as Request,
+                res as Response,
+                next
+            );
 
             expect(next).toHaveBeenCalled();
             expect(res.status).not.toHaveBeenCalled();
@@ -67,7 +80,11 @@ describe("authorize middleware", () => {
                 role: "admin",
             };
 
-            authorize("user")(req, res, next);
+            authorize("user")(
+                req as Request,
+                res as Response,
+                next
+            );
 
             expect(res.status).toHaveBeenCalledWith(403);
             expect(res.json).toHaveBeenCalledWith({
@@ -81,9 +98,11 @@ describe("authorize middleware", () => {
     });
 
     it("should return 401 when no authenticated user exists", () => {
-        req.user = undefined;
-
-        authorize("admin")(req, res, next);
+        authorize("admin")(
+            req as Request,
+            res as Response,
+            next
+        );
 
         expect(res.status).toHaveBeenCalledWith(401);
 
