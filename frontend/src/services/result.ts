@@ -1,16 +1,16 @@
 import api from "./api";
 import { getFormId } from "../utils/localStorage";
 
-export const getResultData = async () => {
+export const getResultData = async (formId?: string) => {
     try {
-        const formId = getFormId();
+        console.log("form id in service form.ts",formId)
+        const id = formId ?? getFormId();
 
-        if (!formId) {
+        if (!id) {
             throw new Error("Form ID not found.");
         }
 
-        const response = await api.get(`/result/${formId}`);
-
+        const response = await api.get(`/result/${id}`);
 
         return response.data.data;
     } catch (error: unknown) {

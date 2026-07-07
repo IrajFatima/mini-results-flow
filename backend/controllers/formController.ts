@@ -1,9 +1,11 @@
 import { Request, Response } from "express";
-
+import { RequestHandler } from "express";
 import * as formRepository from "../repositories/formRepository";
+/// <reference path="../types/express.d.ts" />
 interface FormParams {
     id: string;
 }
+
 const submitForm = async (req: Request, res: Response): Promise<void> => {
     try {
         const {
@@ -32,7 +34,42 @@ const submitForm = async (req: Request, res: Response): Promise<void> => {
             return;
         }
 
+        const userId = req.user?.id ?? null;
+
+        const isAnonymous = req.user == null;
+
+        const anonymousSessionId =
+            isAnonymous
+                ? req.body.anonymousSessionId
+                : null;
+        if (isAnonymous && !anonymousSessionId) {
+            res.status(400).json({
+                success: false,
+                message: "Anonymous session ID is required.",
+            });
+            return;
+        }
+
+        if (isAnonymous) {
+            const alreadySubmitted =
+                await formRepository.anonymousSubmissionExists(
+                    anonymousSessionId
+                );
+
+            if (alreadySubmitted) {
+                res.status(403).json({
+                    success: false,
+                    message:
+                        "Guests can only submit one form. Please create an account to submit another.",
+                });
+
+                return;
+            }
+        }
         const insertedForm = await formRepository.createForm({
+            userId,
+            isAnonymous,
+            anonymousSessionId,
             gender,
             bodyFatPercent,
             BMI,
@@ -56,11 +93,64 @@ const submitForm = async (req: Request, res: Response): Promise<void> => {
         });
     }
 };
-
-const getFormData = async (
-    req: Request<FormParams>,
+const getAllFormDataForUser = async (
+    req: Request,
     res: Response
 ): Promise<void> => {
+    try {
+        const userId = req.user!.id;
+
+        const forms =
+            await formRepository.getAllFormDataForUser(userId);
+
+        res.status(200).json({
+            success: true,
+            data: forms,
+        });
+    } catch (error) {
+        console.error(
+            "Error fetching user form submissions:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message:
+                "An error occurred while fetching form submissions.",
+        });
+    }
+};
+
+const getAllFormDataForAdmin = async (
+    req: Request,
+    res: Response
+): Promise<void> => {
+    try {
+        const forms =
+            await formRepository.getAllFormDataForAdmin();
+
+        res.status(200).json({
+            success: true,
+            data: forms,
+        });
+    } catch (error) {
+        console.error(
+            "Error fetching all form submissions:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message:
+                "An error occurred while fetching form submissions.",
+        });
+    }
+};
+
+const getFormData: RequestHandler<FormParams> = async (
+    req,
+    res
+) => {
     try {
         const { id } = req.params;
 
@@ -96,10 +186,10 @@ const getFormData = async (
     }
 };
 
-const deleteFormData = async (
-    req: Request<FormParams>,
-    res: Response
-): Promise<void> => {
+const deleteFormData: RequestHandler<FormParams> = async (
+    req,
+    res
+) => {
     try {
         const { id } = req.params;
 
@@ -139,4 +229,6 @@ export {
     submitForm,
     getFormData,
     deleteFormData,
+    getAllFormDataForAdmin,
+    getAllFormDataForUser
 };

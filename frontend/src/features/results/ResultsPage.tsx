@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import type { ResultCard } from "../../types/resultCard";
 import { useState, useEffect } from "react";
 import ResultCardComponent from "./ResultCardComponent";
@@ -8,6 +8,7 @@ import { getResultData } from "../../services/result";
 import { toast } from "react-toastify";
 
 function ResultsPage() {
+    const { formId } = useParams<{ formId?: string }>();
     const navigate = useNavigate();
     const [cIndex, setCIndex] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -17,7 +18,14 @@ function ResultsPage() {
     }
     const next = () => {
         if (cIndex === cards.length - 1) {
-            navigate("/sales");
+            if (formId) {
+                console.log("iddd:v ",formId);
+                navigate(-1);
+            } else {
+                console.log("iddd:v ",formId);
+                navigate("/sales");
+            }
+
             return;
         }
 
@@ -26,10 +34,18 @@ function ResultsPage() {
     useEffect(() => {
         const loadResultData = async () => {
             try {
-                const data = await getResultData();
+                let data;
+                
+                if(formId){
+                    data = await getResultData(formId);
+                }else{
+                    data = await getResultData();
+                }
+
                 setCards(data);
             } catch (error) {
                 console.error("Error fetching result data:", error);
+
                 toast.error(
                     "An error occurred while fetching the result data. Please try again."
                 );
@@ -39,8 +55,8 @@ function ResultsPage() {
         };
 
         loadResultData();
-    }, []);
-    
+    }, [formId]);
+
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center">
