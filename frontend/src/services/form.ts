@@ -2,19 +2,41 @@ import api from "./api";
 import type { FormData } from "../types/form";
 import {
     getFormId,
-    removeFormId,
     saveFormId,
 } from "../utils/localStorage";
+import { getToken } from "../utils/token";
+import { getAnonymousSessionId } from "../utils/anonymousSession";
+import type { FormDataDisplay } from "../types/formDataDisplay";
 
 export const submitForm = async (formData: FormData) => {
     try {
-        const response = await api.post("/form", formData);
+        const payload = {
+            ...formData,
+
+            /*
+             * Anonymous users are not authenticated with a JWT.
+             * Store their session identifier with the form so
+             * future requests can be matched to the same browser.
+             */
+            ...(getToken()
+                ? {}
+                : {
+                    anonymousSessionId:
+                        getAnonymousSessionId(),
+                }),
+        };
+
+        const response = await api.post("/form", payload);
+
         saveFormId(response.data.id);
 
         return response.data;
     } catch (error: unknown) {
         if (error instanceof Error) {
-            console.error("Error submitting form:", error.message);
+            console.error(
+                "Error submitting form:",
+                error.message
+            );
         }
 
         throw error;
@@ -30,6 +52,7 @@ export const getFormData = async () => {
         }
 
         const response = await api.get(`/form/${formId}`);
+
         const data = response.data.data;
 
         return {
@@ -43,16 +66,18 @@ export const getFormData = async () => {
         };
     } catch (error: unknown) {
         if (error instanceof Error) {
-            console.error("Error fetching form data:", error.message);
+            console.error(
+                "Error fetching form data:",
+                error.message
+            );
         }
 
         throw error;
     }
 };
 
-export const deleteFormData = async () => {
+export const deleteFormData = async (formId: string) => {
     try {
-        const formId = getFormId();
 
         if (!formId) {
             throw new Error("Form ID not found.");
@@ -60,12 +85,38 @@ export const deleteFormData = async () => {
 
         const response = await api.delete(`/form/${formId}`);
 
-        removeFormId();
 
         return response.data;
     } catch (error: unknown) {
         if (error instanceof Error) {
-            console.error("Error deleting form data:", error.message);
+            console.error(
+                "Error deleting form data:",
+                error.message
+            );
+        }
+
+        throw error;
+    }
+};
+
+export const getAllFormData = async (
+    role: "admin" | "user" | null
+): Promise<FormDataDisplay[]> => {
+    try {
+        const endpoint =
+            role === "admin"
+                ? "/form/all/admin"
+                : "/form/all/user";
+
+        const response = await api.get(endpoint);
+
+        return response.data.data;
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            console.error(
+                "Error fetching form submissions:",
+                error.message
+            );
         }
 
         throw error;

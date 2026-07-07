@@ -34,23 +34,7 @@ interface ResultCard {
     alt: string;
 }
 
-const getResult = async (
-    id: string
-): Promise<ResultCard[] | null> => {
-    const query = `
-        SELECT *
-        FROM form_data
-        WHERE id = $1
-    `;
-
-    const result = await db.query<FormRow>(query, [id]);
-
-    if (result.rows.length === 0) {
-        return null;
-    }
-
-    const formData = result.rows[0];
-
+const buildResultCards = (formData: FormRow): ResultCard[] => {
     return [
         {
             id: 1,
@@ -148,4 +132,65 @@ const getResult = async (
     ];
 };
 
-export { getResult };
+const getResultById = async (
+    id: string
+): Promise<ResultCard[] | null> => {
+    const result = await db.query<FormRow>(
+        `SELECT * FROM form_data WHERE id = $1`,
+        [id]
+    );
+
+    if (result.rows.length === 0) {
+        return null;
+    }
+
+    return buildResultCards(result.rows[0]);
+};
+
+const getResultByUser = async (
+    id: string,
+    userId: string
+): Promise<ResultCard[] | null> => {
+    const result = await db.query<FormRow>(
+        `
+        SELECT *
+        FROM form_data
+        WHERE id = $1
+          AND user_id = $2
+        `,
+        [id, userId]
+    );
+
+    if (result.rows.length === 0) {
+        return null;
+    }
+
+    return buildResultCards(result.rows[0]);
+};
+
+const getResultByAnonymousSession = async (
+    id: string,
+    sessionId: string
+): Promise<ResultCard[] | null> => {
+    const result = await db.query<FormRow>(
+        `
+        SELECT *
+        FROM form_data
+        WHERE id = $1
+          AND anonymous_session_id = $2
+        `,
+        [id, sessionId]
+    );
+
+    if (result.rows.length === 0) {
+        return null;
+    }
+
+    return buildResultCards(result.rows[0]);
+};
+
+export {
+    getResultById,
+    getResultByUser,
+    getResultByAnonymousSession,
+};
