@@ -43,9 +43,7 @@ function FormPage() {
                 }
             } catch (error) {
                 console.error("Error fetching form data:", error);
-                toast.error(
-                    "An error occurred while fetching the form data. Please try again."
-                );
+
             }
         };
 
