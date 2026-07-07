@@ -147,10 +147,7 @@ const getAllFormDataForAdmin = async (
     }
 };
 
-const getFormData: RequestHandler<FormParams> = async (
-    req,
-    res
-) => {
+const getFormData: RequestHandler<FormParams> = async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -162,7 +159,31 @@ const getFormData: RequestHandler<FormParams> = async (
             return;
         }
 
-        const form = await formRepository.getFormById(id);
+        let form = null;
+
+        if (!req.user) {
+            const anonymousSessionId = req.body.anonymousSessionId;
+
+            if (!anonymousSessionId) {
+                res.status(401).json({
+                    success: false,
+                    message: "Anonymous session ID is required.",
+                });
+                return;
+            }
+
+            form = await formRepository.getFormByAnonymousSession(
+                id,
+                anonymousSessionId
+            );
+        } else if (req.user.role === "admin") {
+            form = await formRepository.getFormById(id);
+        } else {
+            form = await formRepository.getFormByUser(
+                id,
+                req.user.id
+            );
+        }
 
         if (!form) {
             res.status(404).json({
@@ -181,15 +202,13 @@ const getFormData: RequestHandler<FormParams> = async (
 
         res.status(500).json({
             success: false,
-            message: "An error occurred while fetching the Form Data.",
+            message:
+                "An error occurred while fetching the Form Data.",
         });
     }
 };
 
-const deleteFormData: RequestHandler<FormParams> = async (
-    req,
-    res
-) => {
+const deleteFormData: RequestHandler<FormParams> = async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -201,7 +220,34 @@ const deleteFormData: RequestHandler<FormParams> = async (
             return;
         }
 
-        const deletedForm = await formRepository.deleteFormById(id);
+        let deletedForm = null;
+
+        if (!req.user) {
+            const anonymousSessionId = req.body.anonymousSessionId;
+
+            if (!anonymousSessionId) {
+                res.status(401).json({
+                    success: false,
+                    message: "Anonymous session ID is required.",
+                });
+                return;
+            }
+
+            deletedForm =
+                await formRepository.deleteFormByAnonymousSession(
+                    id,
+                    anonymousSessionId
+                );
+        } else if (req.user.role === "admin") {
+            deletedForm =
+                await formRepository.deleteFormById(id);
+        } else {
+            deletedForm =
+                await formRepository.deleteFormByUser(
+                    id,
+                    req.user.id
+                );
+        }
 
         if (!deletedForm) {
             res.status(404).json({
@@ -220,7 +266,8 @@ const deleteFormData: RequestHandler<FormParams> = async (
 
         res.status(500).json({
             success: false,
-            message: "An error occurred while deleting the Form Data.",
+            message:
+                "An error occurred while deleting the Form Data.",
         });
     }
 };

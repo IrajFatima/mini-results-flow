@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import RadioGroup from "../../components/RadioGroup"
 import Slider from "../../components/SliderComponent"
 import { useNavigate } from "react-router-dom";
-import { submitForm } from "../../services/form"
+import { submitForm, getFormData } from "../../services/form"
 import { defaultFormData } from "../../utils/defaultFormData"
 import { toast } from "react-toastify";
+import { getFormId } from "../../utils/localStorage";
 import axios from "axios";
 
 function FormPage() {
@@ -40,6 +41,26 @@ function FormPage() {
             setLoading(false);
         }
     }
+
+    useEffect(() => {
+        const loadFormData = async () => {
+            try {
+                const savedFormId = getFormId();
+
+                if (savedFormId) {
+                    const data = await getFormData();
+                    setFormData(data);
+                }
+            } catch (error) {
+                console.error("Error fetching form data:", error);
+                toast.error(
+                    "An error occurred while fetching the form data. Please try again."
+                );
+            }
+        };
+
+        loadFormData();
+    }, []);
 
     const isFormValid =
         formData.bodyFatPercent != null &&
