@@ -40,34 +40,44 @@ export default function Sidebar({
             {/* successfully switches to dark theme and light theme */}
             <aside
                 className={`
-                        fixed top-0 left-0 z-50
-                    h-screen w-64
-                    bg-white dark:bg-[#232627]
-                    border-r border-gray-200 dark:border-gray-700
-                    p-6
-                    transform transition-transform duration-300
+fixed top-0 left-0 z-50
+h-screen w-72
+border-r border-gray-300 dark:border-gray-700
+bg-white dark:bg-[#232627]
+px-5 py-8
+shadow-lg
+transform transition-transform duration-300
 
-                    ${open ? "translate-x-0" : "-translate-x-full"}
+${open ? "translate-x-0" : "-translate-x-full"}
 
-                    md:translate-x-0
-                `}
+md:translate-x-0
+`}
             >
-                <h2 className="text-2xl font-bold text-[#1F8A70] mb-8 mt-4 text-center">
-                    Mini Results
-                </h2>
+                <div className="mb-10 border-b border-gray-200 pb-6 dark:border-gray-700">
 
+                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1F8A70] shadow-lg shadow-[#1F8A70]/20">
 
-                <hr />
-                <br />
-                <br />
-                <nav className="flex flex-col gap-3">
+                        <FaRobot className="text-3xl text-white" />
+
+                    </div>
+
+                    <h2 className="text-center text-2xl font-bold tracking-tight text-[#183B49] dark:text-white">
+                        Mini Results
+                    </h2>
+
+                    <p className="mt-2 text-center text-sm text-gray-500 dark:text-gray-400">
+                        Personalized Fitness Assistant
+                    </p>
+
+                </div>
+                <nav className="flex flex-col gap-2">
                     <NavLink
                         to="/"
                         end
                         onClick={onClose}
                         className={({ isActive }) =>
-                            `flex items-center gap-3 rounded-lg px-4 py-3 transition ${isActive
-                                ? "bg-[#1F8A70] text-white"
+                            `flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive
+                                ? "bg-[#1F8A70] text-white shadow-sm ring-1 ring-[#1F8A70]/20"
                                 : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2d3031]"
                             }`
                         }
@@ -81,8 +91,8 @@ export default function Sidebar({
                         end
                         onClick={onClose}
                         className={({ isActive }) =>
-                            `flex items-center gap-3 rounded-lg px-4 py-3 transition ${isActive
-                                ? "bg-[#1F8A70] text-white"
+                            `flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive
+                                ? "bg-[#1F8A70] text-white shadow-sm ring-1 ring-[#1F8A70]/20"
                                 : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2d3031]"
                             }`
                         }
@@ -97,8 +107,8 @@ export default function Sidebar({
                                 end
                                 onClick={onClose}
                                 className={({ isActive }) =>
-                                    `flex items-center gap-3 rounded-lg px-4 py-3 transition ${isActive
-                                        ? "bg-[#1F8A70] text-white"
+                                    `flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive
+                                        ? "bg-[#1F8A70] text-white shadow-sm ring-1 ring-[#1F8A70]/20"
                                         : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2d3031]"
                                     }`
                                 }
@@ -112,8 +122,8 @@ export default function Sidebar({
                                 end
                                 onClick={onClose}
                                 className={({ isActive }) =>
-                                    `flex items-center gap-3 rounded-lg px-4 py-3 transition ${isActive
-                                        ? "bg-[#1F8A70] text-white"
+                                    `flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive
+                                        ? "bg-[#1F8A70] text-white shadow-sm ring-1 ring-[#1F8A70]/20"
                                         : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2d3031]"
                                     }`
                                 }
@@ -132,8 +142,8 @@ export default function Sidebar({
                                 end
                                 onClick={onClose}
                                 className={({ isActive }) =>
-                                    `flex items-center gap-3 rounded-lg px-4 py-3 transition ${isActive
-                                        ? "bg-[#1F8A70] text-white"
+                                    `flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive
+                                        ? "bg-[#1F8A70] text-white shadow-sm ring-1 ring-[#1F8A70]/20"
                                         : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2d3031]"
                                     }`
                                 }
@@ -144,7 +154,7 @@ export default function Sidebar({
 
                             <button
                                 onClick={handleLogout}
-                                className="flex items-center gap-3 rounded-lg px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2d3031] transition w-full text-left"
+                                className="group flex w-full items-center gap-4 rounded-xl px-4 py-3 font-medium text-left text-gray-700 transition-all duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-[#2f3335]"
                             >
                                 <FaSignOutAlt />
                                 <span>Logout</span>

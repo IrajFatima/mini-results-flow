@@ -56,16 +56,16 @@ function DashboardPage() {
     }
 
     return (
-        <div className="min-h-screen flex justify-center px-4 py-8">
+        <div className="min-h-screen flex justify-center px-4 py-10">
             <div className="w-full max-w-5xl">
                 <div className="mb-8 text-center">
-                    <h1 className="text-3xl md:text-4xl font-bold text-[#183B49] dark:text-white">
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-[#183B49] dark:text-white">
                         {user?.role === "admin"
                             ? "Admin Dashboard"
                             : "My Submissions"}
                     </h1>
 
-                    <p className="mt-2 text-[#13627D] dark:text-[#9FA6A9]">
+                    <p className="mt-3 leading-6 text-sm md:text-base text-[#13627D] dark:text-[#9FA6A9]">
                         {user?.role === "admin"
                             ? "Manage and review all submitted forms."
                             : "View, manage, and access your previous submissions."}

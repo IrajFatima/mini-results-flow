@@ -23,13 +23,13 @@ function RadioGroup({
     onChange,
 }: RadioGroupProps) {
     return (
-        <div className="mb-6">
-            <label className="block mb-3" htmlFor={name}>
+        <div>
+            <label className="block mb-2 text-sm font-semibold tracking-wide text-[#183B49] dark:text-white" htmlFor={name}>
                 {label}
                 {required && <span className="highlight"> *</span>}
             </label>
 
-            <div className="flex gap-6">
+            <div className="flex flex-wrap gap-4">
                 {options.map((option) => (
                     <label
                         key={option.value}
@@ -42,11 +42,13 @@ function RadioGroup({
                             name={name}
                             value={option.value}
                             checked={value == option.value}
-                            className="w-5 h-5 accent-[#183B49]"
+                            className="h-5 w-5 accent-[#1F8A70]"
                             onChange={onChange}
                         />
 
-                        {option.label}
+                        <span className="text-sm font-medium text-black dark:text-white">
+    {option.label}
+</span>
                     </label>
                 ))}
             </div>

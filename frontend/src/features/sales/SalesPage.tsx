@@ -85,9 +85,9 @@ function SalesPage() {
                                         })
                                     }
                                     aria-label="Scroll to plan section"
-                                    className="relative flex w-full items-center justify-center rounded-lg py-3 px-8 font-bold text-white shadow-lg transition cursor-pointer pointer-events-auto"
+                                    className="relative flex w-full items-center justify-center hover:shadow-lg rounded-xl py-3 px-8 font-bold text-white shadow-lg transition cursor-pointer pointer-events-auto"
                                     style={{
-                                        backgroundColor: "rgb(54,188,159)",
+                                        backgroundColor: "#1F8A70",
                                         color: "#fff",
                                         boxShadow: "rgba(54,188,159,0.15) 0px 2px 8px 0px",
                                     }}
@@ -99,15 +99,18 @@ function SalesPage() {
                             </motion.div>
                         )}
                     </AnimatePresence>
-                    <div className="rounded-xl shadow-xl bg-white dark:bg-[#232627] p-6 my-3 rounded-lg">
-                        <div className="md:px-[48px] md:pt-[20px] px-[8px] pt-[16px]">
+                    <motion.div
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#232627] shadow-sm hover:shadow-sm border transition-shadow duration-300 p-5 md:p-6 my-3">
+                        <div className="px-4 md:px-12 md:pt-[20px] pt-[16px]">
                             <div className="text-center text-[28px]">🎯</div>
-                            <div className="text-center text-[#183B49] dark:text-white md:text-[34px] text-[24px] font-semibold md:px-12 leading-[1.2]">
+                            <div className="text-center text-[#183B49] dark:text-white md:text-[34px] text-[24px] font-bold tracking-tight md:px-12 leading-[1.2]">
                                 Your Personalized KetoSlim Plan Is Ready
                             </div>
                         </div>
 
-                        <div className=" relative flex relative flex flex-row justify-center items-end gap-4 md:gap-18 mb-2 mt-4 w-full" style={{ minHeight: "180px" }}>
+                        <div className=" relative flex relative flex flex-row justify-center items-end gap-8 md:gap-14 mb-2 mt-4 w-full" style={{ minHeight: "180px" }}>
                             <img
                                 aria-hidden="true"
                                 src="/transformation-arrow-f.svg"
@@ -137,7 +140,7 @@ function SalesPage() {
                                 className="relative z-10 w-[130px] md:w-[170px] h-auto rounded-lg"
                             />
                         </div>
-                        <div className="flex w-full px-8 justify-between items-center mt-2 mb-4 bg-white dark:bg-[#232627] shadow-md rounded-lg py-4">
+                        <div className="flex w-full px-8 justify-between items-center mt-2 mb-4 bg-white dark:bg-[#232627] shadow-sm rounded-lg py-4">
                             <div className="w-1/2 text-center font-bold text-[#12241F] dark:text-[#E0E6E9]">
                                 Now
                             </div>
@@ -393,7 +396,7 @@ function SalesPage() {
                                 ✅ Risk-Free: Backed by 60-Day Money-Back Guarantee
                             </div>
 
-                            <button className="mt-4 w-full relative md:rounded-xl rounded-lg bg-[#1F8A70] text-white py-3 md:text-lg font-semibold transition-all duration-200 hover:bg-[#2ca98e]"
+                            <button className="mt-4 w-full relative md:rounded-xl rounded-lg bg-[#1F8A70] text-white py-3 md:text-lg font-semibold transition-all duration-200 hover:bg-[#176F5B] shadow-sm hover:shadow-lg"
                                 onClick={() => alert(
                                     `Thank you for continuing with the ${selectedPlan === "discount" ? "1 Payment" : "3 Payments"
                                     } option!`
@@ -408,12 +411,12 @@ function SalesPage() {
                                 navigate('/');
                             }} className="text-[#0e485c] dark:text-white md:text-lg text-center mt-3 cursor-pointer"><u>No Thanks, I don’t want my plan.</u></div>
                         </div>
-                    </div>
+                    </motion.div>
 
                     <div className="mt-10">
                         <div className="flex justify-between items-center">
-                            <h1 className="text-[#13556F] dark:text-[#adaaaa] md:text-5xl text-4xl font-semibold">Money Back Guarantee</h1>
-                            <img src="/60-day-guarantee.webp" alt="money back guarantee" className="w-[100px] md:w-[120px]" />
+                            <h1 className="text-[#13556F] dark:text-[#adaaaa] text-3xl md:text-4xl font-semibold">Money Back Guarantee</h1>
+                            <img src="/60-day-guarantee.webp" alt="money back guarantee" className="w-[80px] md:w-[100px]" />
                         </div>
                         <div>
                             <p className="text-[#13556F] dark:text-[#adaaaa] md:text-lg my-4">
@@ -445,7 +448,7 @@ function SalesPage() {
                                 Your subscription will be bound by our{" "}
                                 <a
                                     href="#"
-                                    className="inline-flex items-center px-2 py-2 text-[#F75950] underline"
+                                    className="inline-flex items-center px-2 text-lg text-[#F75950] underline"
                                 >
                                     Terms and Privacy Policy
                                 </a>
@@ -455,14 +458,14 @@ function SalesPage() {
                                 If you would like a refund for any reason, call{" "}
                                 <a
                                     href="#"
-                                    className="inline-flex items-center px-2 py-2 text-[#F75950] underline"
+                                    className="inline-flex items-center text-lg text-[#F75950] underline"
                                 >
                                     1-800-695-5045
                                 </a>{" "}
                                 or email{" "}
                                 <a
                                     href="#"
-                                    className="inline-flex items-center px-2 py-2 text-[#F75950] underline"
+                                    className="inline-flex items-center text-lg text-[#F75950] underline"
                                 >
                                     support@myketoslim.com
                                 </a>

@@ -7,6 +7,7 @@ import { defaultFormData } from "../../utils/defaultFormData"
 import { toast } from "react-toastify";
 import { getFormId } from "../../utils/localStorage";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 function FormPage() {
     const [formData, setFormData] = useState({ ...defaultFormData });
@@ -85,14 +86,30 @@ function FormPage() {
         formData.seeResultsDays != null &&
         formData.seeResultsDays > 0;
     return (
-        <div>
-            <h1 className="m-6 text-black dark:text-white text-4xl text-center font-semibold">Enter your <span className="highlight">Details</span></h1>
-            <div className="m-3 md:p-[30px] p-[24px] max-w-2xl md:mx-auto bg-white dark:bg-[#232627] border border-gray-300  dark:border-gray-700 rounded-xl text-black dark:text-white mx-2">
+        <div className="py-10">
+            <div className="mb-10 text-center">
+                <h1 className="text-4xl font-bold tracking-tight text-black dark:text-white">
+                    Enter your <span className="highlight">Details</span>
+                </h1>
+
+                <p className="mt-3 text-gray-500 dark:text-gray-400">
+                    Complete the form below to generate your personalized fitness results.
+                </p>
+            </div>
+            <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35 }}
+                className="mx-3 max-w-2xl rounded-2xl border border-gray-300 bg-white p-6 text-black shadow-sm transition-shadow duration-300 hover:shadow-md dark:border-gray-700 dark:bg-[#232627] dark:text-white md:mx-auto md:p-8"
+            >
                 {/* Form validation intentionally relies on disabled submit state and helper text
                     instead of per-field error styling. Since validation errors are not shown
                     individually, red borders/icons are intentionally omitted to keep the form
                     visually clean and reduce unnecessary visual noise. */}
-                <form onSubmit={handleSubmit}>
+                <form
+                    onSubmit={handleSubmit}
+                    className="space-y-6"
+                >
                     <RadioGroup
                         label="Gender"
                         name="gender"
@@ -124,8 +141,8 @@ function FormPage() {
                         name="BMI"
                         helperText="Enter your Body Mass Index (0-40)."
                     />
-                    <div className="mb-6">
-                        <label className="block mb-3" htmlFor="calorieTarget">Daily Calorie Target
+                    <div>
+                        <label className="block mb-2 text-sm font-semibold tracking-wide text-[#183B49] dark:text-white" htmlFor="calorieTarget">Daily Calorie Target
                             <span className="highlight"> *</span>
                         </label>
                         <input
@@ -137,16 +154,16 @@ function FormPage() {
                             required
                             placeholder="e.g. 2000"
                             value={formData.calorieTarget ?? ""}
-                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-sm bg-white dark:bg-[#232627] text-black dark:text-white focus:outline-none focus:ring-1  focus:border-[#1F8A70]"
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg transition-all duration-200  bg-white dark:bg-[#232627] text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-[#1F8A70]/20 focus:border-[#1F8A70]   focus:border-[#1F8A70]"
                         />
                     </div>
-                    <div className="mb-6">
-                        <label className="block mb-3" htmlFor="waterIntake">Litres of Water Per Day
+                    <div>
+                        <label className="block mb-2 text-sm font-semibold tracking-wide text-[#183B49] dark:text-white" htmlFor="waterIntake">Litres of Water Per Day
                             <span className="highlight"> *</span>
                         </label>
 
                         <select
-                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-sm bg-white dark:bg-[#232627] text-black dark:text-white focus:outline-none focus:ring-1  focus:border-[#1F8A70]"
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg transition-all duration-200  bg-white dark:bg-[#232627] text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-[#1F8A70]/20 focus:border-[#1F8A70]   focus:border-[#1F8A70]"
                             required
                             onChange={handleChange}
                             value={formData.waterIntake ?? ""}
@@ -160,8 +177,8 @@ function FormPage() {
                             <option value="6">6</option>
                         </select>
                     </div>
-                    <div className="mb-6">
-                        <label className="block mb-3" htmlFor="weightLossRate">Weekly Weight Loss Goal (lbs)
+                    <div>
+                        <label className="block mb-2 text-sm font-semibold tracking-wide text-[#183B49] dark:text-white" htmlFor="weightLossRate">Weekly Weight Loss Goal (lbs)
                             <span className="highlight"> *</span>
                         </label>
                         <input
@@ -173,11 +190,11 @@ function FormPage() {
                             placeholder="e.g. 1.5"
                             name="weightLossRate"
                             id="weightLossRate"
-                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-sm bg-white dark:bg-[#232627] text-black dark:text-white focus:outline-none focus:ring-1  focus:border-[#1F8A70]"
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg transition-all duration-200  bg-white dark:bg-[#232627] text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-[#1F8A70]/20 focus:border-[#1F8A70]   focus:border-[#1F8A70]"
                         />
                     </div>
-                    <div className="mb-6">
-                        <label className="block mb-3" htmlFor="seeResultsDays">Days to See Results
+                    <div>
+                        <label className="block mb-2 text-sm font-semibold tracking-wide text-[#183B49] dark:text-white" htmlFor="seeResultsDays">Days to See Results
                             <span className="highlight"> *</span>
                         </label>
                         <input
@@ -190,16 +207,18 @@ function FormPage() {
                             id="seeResultsDays"
                             placeholder="e.g. 30"
 
-                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-sm bg-white dark:bg-[#232627] text-black dark:text-white focus:outline-none focus:ring-1  focus:border-[#1F8A70]"
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg transition-all duration-200  bg-white dark:bg-[#232627] text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-[#1F8A70]/20 focus:border-[#1F8A70]   focus:border-[#1F8A70]"
                         />
                     </div>
 
-                    <button type="submit"
+                    <motion.button type="submit"
                         disabled={!isFormValid || loading}
-                        className={`w-full rounded-xl p-4 text-xl font-semibold transition-colors flex items-center justify-center gap-2 ${isFormValid && !loading
-                            ? "bg-[#1F8A70] hover:bg-[#2ea68d] text-white "
+                        className={`relative flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 font-semibold shadow-sm transition-all duration-200 hover:shadow-lg ${isFormValid && !loading
+                            ? "bg-[#1F8A70] hover:bg-[#176F5B] text-white "
                             : "bg-[#2D7163] cursor-not-allowed text-gray-300"
                             }`}
+                        whileHover={isFormValid && !loading ? { scale: 1.02 } : {}}
+                        whileTap={isFormValid && !loading ? { scale: 0.98 } : {}}
                     >
                         {loading ? (
                             <>
@@ -229,11 +248,17 @@ function FormPage() {
                         ) : (
                             "See My Results"
                         )}
-                    </button>
-                    {!isFormValid && <p className="text-[#1e7563] m-6 text-xs text-center dark:text-[#adaaaa]">Please fill out all required fields to enable the button.</p>}
+                    </motion.button>
+                    {!isFormValid &&
+                        <div className="mt-2 rounded-xl border border-[#1F8A70]/10 bg-[#1F8A70]/5 px-4 py-3">
+                            <p className="text-center text-sm leading-6 text-[#1F8A70] dark:text-gray-300">
+                                Please complete all required fields to continue.
+                            </p>
+                        </div>
+                    }
                 </form>
-            </div>
-        </div>
+            </motion.div>
+        </div >
     )
 }
 

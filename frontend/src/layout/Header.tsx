@@ -20,14 +20,34 @@ function Header({ onMenuClick }: HeaderProps) {
 
   return (
     <header className="px-4 pt-4">
-      <div className="flex items-center justify-between">
-        {/* Mobile Menu */}
-        <button
-          onClick={onMenuClick}
-          className="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-[#2D3133]"
-        >
-          <HiMenu size={26} />
-        </button>
+      <div >
+        <div className="flex items-center justify-between">
+          <div className="w-10">
+            <button
+              onClick={onMenuClick}
+              className="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-[#2D3133] transition-colors"
+            >
+              <HiMenu size={26} />
+            </button>
+          </div>
+
+          <button
+            onClick={toggleTheme}
+            className="
+      px-4 py-2
+      bg-white dark:bg-[#2D3133]
+      border border-gray-300 dark:border-gray-700
+      rounded-lg
+      text-black dark:text-white
+      hover:bg-[#1F8A70]
+      hover:text-white
+      transition-all duration-200
+      shadow-sm hover:shadow-md
+    "
+          >
+            {isDark ? "Light Mode" : "Dark Mode"}
+          </button>
+        </div>
 
         <div className="flex-1 flex justify-center pt-[76px]">
           <Link to="/" aria-label="Go to home page">
@@ -37,24 +57,8 @@ function Header({ onMenuClick }: HeaderProps) {
           </Link>
         </div>
 
-        <button
-          onClick={toggleTheme}
-          className="
-            absolute
-            top-6
-            right-8
-            px-4 py-2
-            bg-white dark:bg-[#2D3133]
-            border border-gray-300 dark:border-gray-700
-            rounded-lg
-            text-black dark:text-white
-            hover:bg-[#1F8A70]
-            hover:text-white
-            transition
-          "
-        >
-          {isDark ? "Light Mode" : "Dark Mode"}
-        </button>
+
+
       </div>
     </header>
   );
