@@ -149,7 +149,7 @@ function SignupPage() {
                             style={{
                                 width: 75,
                                 height: 75,
-                                background: "#36BC9F",
+                                background: "#1F8A70",
                             }}
                         >
                             <FaUser
@@ -177,18 +177,19 @@ function SignupPage() {
                         <div className="mb-4">
                             <label className="block font-semibold text-[#183B49] dark:text-white mb-1.5">
                                 Full Name
+                                <span className="highlight"> *</span>
                             </label>
 
                             <div className="flex items-center">
-                                <span className="bg-white dark:bg-[#2f3335] border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-lg px-3 py-2.5 flex items-center justify-center">
-                                    <FaUser color="#36BC9F" />
+                                <span className="h-12 bg-white dark:bg-[#2f3335] border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-lg px-3 py-2.5 flex items-center justify-center">
+                                    <FaUser color="#1F8A70" />
                                 </span>
 
                                 <input
                                     type="text"
                                     name="name"
                                     placeholder="Enter your full name"
-                                    className="flex-1 border border-l-0 border-gray-300 dark:border-gray-600 rounded-r-lg px-3 py-2.5 bg-white dark:bg-[#2f3335] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#36BC9F] focus:border-transparent"
+                                    className="h-12 flex-1 border border-l-0 border-gray-300 dark:border-gray-600 rounded-r-lg px-3 py-2.5 bg-white dark:bg-[#2f3335] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#1F8A70] focus:border-transparent"
                                     value={formData.name}
                                     onChange={handleChange}
                                 />
@@ -205,18 +206,19 @@ function SignupPage() {
                         <div className="mb-4">
                             <label className="block font-semibold text-[#183B49] dark:text-white mb-1.5">
                                 Email Address
+                                <span className="highlight"> *</span>
                             </label>
 
                             <div className="flex items-center">
-                                <span className="bg-white dark:bg-[#2f3335] border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-lg px-3 py-2.5 flex items-center justify-center">
-                                    <FaEnvelope color="#36BC9F" />
+                                <span className="h-12 bg-white dark:bg-[#2f3335] border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-lg px-3 py-2.5 flex items-center justify-center">
+                                    <FaEnvelope color="#1F8A70" />
                                 </span>
 
                                 <input
                                     type="email"
                                     name="email"
                                     placeholder="Enter your email"
-                                    className="flex-1 border border-l-0 border-gray-300 dark:border-gray-600 rounded-r-lg px-3 py-2.5 bg-white dark:bg-[#2f3335] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#36BC9F] focus:border-transparent"
+                                    className="h-12 flex-1 border border-l-0 border-gray-300 dark:border-gray-600 rounded-r-lg px-3 py-2.5 bg-white dark:bg-[#2f3335] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#1F8A70] focus:border-transparent"
                                     value={formData.email}
                                     onChange={handleChange}
                                 />
@@ -233,18 +235,19 @@ function SignupPage() {
                         <div className="mb-4">
                             <label className="block font-semibold text-[#183B49] dark:text-white mb-1.5">
                                 Password
+                                <span className="highlight"> *</span>
                             </label>
 
                             <div className="flex items-center">
-                                <span className="bg-white dark:bg-[#2f3335] border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-lg px-3 py-2.5 flex items-center justify-center">
-                                    <FaLock color="#36BC9F" />
+                                <span className="h-12 bg-white dark:bg-[#2f3335] border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-lg px-3 py-2.5 flex items-center justify-center">
+                                    <FaLock color="#1F8A70" />
                                 </span>
 
                                 <input
                                     type="password"
                                     name="password"
                                     placeholder="Minimum 8 characters"
-                                    className="flex-1 border border-l-0 border-gray-300 dark:border-gray-600 rounded-r-lg px-3 py-2.5 bg-white dark:bg-[#2f3335] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#36BC9F] focus:border-transparent"
+                                    className="h-12 flex-1 border border-l-0 border-gray-300 dark:border-gray-600 rounded-r-lg px-3 py-2.5 bg-white dark:bg-[#2f3335] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#1F8A70] focus:border-transparent"
                                     value={formData.password}
                                     onChange={handleChange}
                                 />
@@ -261,18 +264,19 @@ function SignupPage() {
                         <div className="mb-5">
                             <label className="block font-semibold text-[#183B49] dark:text-white mb-1.5">
                                 Confirm Password
+                                <span className="highlight"> *</span>
                             </label>
 
                             <div className="flex items-center">
-                                <span className="bg-white dark:bg-[#2f3335] border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-lg px-3 py-2.5 flex items-center justify-center">
-                                    <FaLock color="#36BC9F" />
+                                <span className="h-12 bg-white dark:bg-[#2f3335] border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-lg px-3 py-2.5 flex items-center justify-center">
+                                    <FaLock color="#1F8A70" />
                                 </span>
 
                                 <input
                                     type="password"
                                     name="confirmPassword"
                                     placeholder="Re-enter password"
-                                    className="flex-1 border border-l-0 border-gray-300 dark:border-gray-600 rounded-r-lg px-3 py-2.5 bg-white dark:bg-[#2f3335] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#36BC9F] focus:border-transparent"
+                                    className="h-12 flex-1 border border-l-0 border-gray-300 dark:border-gray-600 rounded-r-lg px-3 py-2.5 bg-white dark:bg-[#2f3335] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#1F8A70] focus:border-transparent"
                                     value={
                                         formData.confirmPassword
                                     }
@@ -291,7 +295,7 @@ function SignupPage() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-[#36BC9F] text-white font-semibold py-3 px-4 rounded-xl hover:bg-[#2da088] transition-colors relative disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="w-full bg-[#1F8A70] text-white font-semibold py-3 px-4 rounded-xl hover:bg-[#2da088] transition-colors relative disabled:opacity-70 disabled:cursor-not-allowed"
                         >
                             {loading
                                 ? "Creating Account..."
@@ -319,7 +323,7 @@ function SignupPage() {
 
                         <Link
                             to="/login"
-                            className="ml-2 font-semibold text-[#36BC9F] hover:underline"
+                            className="ml-2 font-semibold text-[#1F8A70] hover:underline"
                         >
                             Login
                         </Link>

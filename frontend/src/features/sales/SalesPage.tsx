@@ -6,22 +6,29 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 // import { deleteFormData } from "../../services/form";
 import { removeFormId } from "../../utils/localStorage";
+import {
+    getRemainingTime,
+} from "../../utils/salesTimer";
 
 function SalesPage() {
     const [selectedPlan, setSelectedPlan] = useState<"installments" | "discount">("discount");
-    const [timeLeft, setTimeLeft] = useState(10 * 60);
+    const [timeLeft, setTimeLeft] = useState(() => getRemainingTime());
     const navigate = useNavigate();
     const planRef = useRef<HTMLDivElement>(null);
     const [showCTA, setShowCTA] = useState(true);
     useEffect(() => {
-        if (timeLeft <= 0) return;
-
         const timer = setInterval(() => {
-            setTimeLeft((prev) => prev - 1);
+            const remaining = getRemainingTime();
+
+            setTimeLeft(remaining);
+
+            if (remaining <= 0) {
+                clearInterval(timer);
+            }
         }, 1000);
 
         return () => clearInterval(timer);
-    }, [timeLeft]);
+    }, []);
     useEffect(() => {
         const handleScroll = () => {
             if (!planRef.current) return;
@@ -44,8 +51,9 @@ function SalesPage() {
     const formattedTime = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
     return (
         <>
-            <div className="min-h-screen flex justify-center mx-3 mt-3 mb-8">
+            <div className="min-h-screen flex justify-center md:mx-3 mt-3 mb-8">
                 <div className="p-2 md:max-w-2xl md:p-5 max-w-lg w-full">
+                    {/* CTA button is sticky that disappears when the pricing section ocuurs.. The content is optimized to show irrespective of this CTA button */}
                     <AnimatePresence>
                         {showCTA && (
                             <motion.div
@@ -96,7 +104,7 @@ function SalesPage() {
                             </div>
                         </div>
 
-                        <div className=" relative flex relative flex flex-row justify-center items-end gap-18 mb-2 mt-4 w-full" style={{ minHeight: "180px" }}>
+                        <div className=" relative flex relative flex flex-row justify-center items-end gap-4 md:gap-18 mb-2 mt-4 w-full" style={{ minHeight: "180px" }}>
                             <img
                                 aria-hidden="true"
                                 src="/transformation-arrow-f.svg"
@@ -115,20 +123,15 @@ function SalesPage() {
 
                             <img
                                 src="/obese-middle-aged-woman Medium Background Removed.webp"
-
                                 alt="Before"
-                                width={170}
-                                height={180}
                                 loading="lazy"
-                                className="rounded-lg relative z-10"
-
+                                className="relative z-10 w-[130px] md:w-[170px] h-auto rounded-lg"
                             />
+
                             <img
                                 src="/slim-middle-aged-woman Medium Background Removed.webp"
                                 alt="After"
-                                className="rounded-lg relative z-10"
-                                width={170}
-                                height={180}
+                                className="relative z-10 w-[130px] md:w-[170px] h-auto rounded-lg"
                             />
                         </div>
                         <div className="flex w-full px-8 justify-between items-center mt-2 mb-4 bg-white dark:bg-[#232627] shadow-md rounded-lg py-4">
@@ -180,7 +183,7 @@ function SalesPage() {
                                     <p className="text-[#13627D] dark:text-[#adaaaa] text-sm">Energy Levels</p>
                                     <div className="h-2.5 dark:bg-[#303436] bg-[#E5E7EB] rounded-full overflow-hidden mt-1">
                                         <div
-                                            className="h-full bg-[#36BC9F] rounded-full"
+                                            className="h-full bg-[#1F8A70] rounded-full"
                                             style={{ width: "80%" }}
                                         />
                                     </div>
@@ -189,7 +192,7 @@ function SalesPage() {
                                     <p className="text-[#13627D] dark:text-[#adaaaa] text-sm">Physical Health</p>
                                     <div className="h-2.5 dark:bg-[#303436] bg-[#E5E7EB] rounded-full overflow-hidden mt-1">
                                         <div
-                                            className="h-full bg-[#36BC9F] rounded-full"
+                                            className="h-full bg-[#1F8A70] rounded-full"
                                             style={{ width: "90%" }}
                                         />
                                     </div>
@@ -198,7 +201,7 @@ function SalesPage() {
                                     <p className="text-[#13627D] dark:text-[#adaaaa] text-sm">Metabolism Speed</p>
                                     <div className="h-2.5 dark:bg-[#303436] bg-[#E5E7EB] rounded-full overflow-hidden mt-1">
                                         <div
-                                            className="h-full bg-[#36BC9F] rounded-full"
+                                            className="h-full bg-[#1F8A70] rounded-full"
                                             style={{ width: "75%" }}
                                         />
                                     </div>
@@ -286,6 +289,12 @@ function SalesPage() {
                             </div>
                         </div>
 
+                        {/* 
+                        The recommended "Discount" plan is already emphasized using multiple visual cues,
+                        including a highlighted border, discount badge, "Most Popular" ribbon, selected
+                        state, and contrasting colors. Additional emphasis was intentionally avoided to
+                        maintain visual balance and prevent unnecessary distraction.
+                        */}
                         <div className="mt-8 plan-picker" >
                             <p className="text-[#13627D] dark:text-[#adaaaa] md:text-[28px] text-xl my-3 text-center">3 Month Custom Keto Plan</p>
                             <div className="mt-3 md:rounded-xl rounded-md bg-[#F75950] text-white flex justify-between items-center md:p-3 p-2">
@@ -297,9 +306,9 @@ function SalesPage() {
                             </div>
                             <div
                                 onClick={() => setSelectedPlan("installments")}
-                                className={`mt-3 rounded-xl p-4 cursor-pointer transition-all border-2 ${selectedPlan === "installments"
-                                    ? "border-[#36BC9F] bg-[#F8F4F4] dark:bg-[#181A1B]"
-                                    : "border-gray-200 dark:border-gray-700 bg-white dark:bg-transparent"
+                                className={`mt-3 rounded-xl p-4 cursor-pointer transition-all duration-200 border-2 ${selectedPlan === "installments"
+                                        ? "border-[#1F8A70] bg-[#F8F4F4] dark:bg-[#181A1B] shadow-xl ring-2 ring-[#1F8A70]/20 scale-[1.02]"
+                                        : "border-gray-200 dark:border-gray-700 bg-white dark:bg-transparent"
                                     }`}
                             >
                                 <div className="flex justify-between items-center gap-4">
@@ -314,7 +323,7 @@ function SalesPage() {
 
                                     <div
                                         className={`md:w-10 md:h-10 h-8 w-8 rounded-full border-2 flex items-center justify-center transition-all flex-shrink-0 ${selectedPlan === "installments"
-                                            ? "bg-[#36BC9F] border-[#36BC9F]"
+                                            ? "bg-[#1F8A70] border-[#1F8A70]"
                                             : "border-gray-200 dark:border-gray-700"
                                             }`}
                                     >
@@ -327,15 +336,15 @@ function SalesPage() {
 
                             <div
                                 onClick={() => setSelectedPlan("discount")}
-                                className={`mt-3 relative overflow-hidden rounded-xl p-4 cursor-pointer transition-all border-2 ${selectedPlan === "discount"
-                                    ? "border-[#36BC9F] bg-[#F8F4F4] dark:bg-[#181A1B]"
+                                className={`mt-3 relative overflow-hidden rounded-xl p-4 cursor-pointer transition-all duration-200 border-2 ${selectedPlan === "discount"
+                                    ? "border-[#1F8A70] bg-[#F8F4F4] dark:bg-[#181A1B] shadow-xl ring-2 ring-[#1F8A70]/20 scale-[1.02]"
                                     : "border-gray-200 dark:border-gray-700 bg-white dark:bg-transparent"
                                     }`}
                             >
                                 {/* Top Right Badge */}
                                 <div
                                     className={`absolute top-0 right-0 px-5 py-2 rounded-bl-xl font-semibold md:text-lg tracking-wider transition-colors ${selectedPlan === "discount"
-                                        ? "bg-[#36BC9F] text-white dark:text-black"
+                                        ? "bg-[#1F8A70] text-white dark:text-black"
                                         : "bg-[#F8F4F4] dark:bg-[#181A1B] text-[#13627D]"
                                         }`}
                                 >
@@ -357,7 +366,7 @@ function SalesPage() {
 
                                     <div
                                         className={`md:w-10 md:h-10 w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all flex-shrink-0 ${selectedPlan === "discount"
-                                            ? "bg-[#36BC9F] border-[#36BC9F] "
+                                            ? "bg-[#1F8A70] border-[#1F8A70] "
                                             : "border-gray-400"
                                             }`}
                                     >
@@ -370,7 +379,7 @@ function SalesPage() {
                                 {/* Bottom Ribbon */}
                                 <div
                                     className={`mt-5 -mx-4 -mb-4 py-1 md:text-sm text-xs font-semibold text-center  tracking-[3px] uppercase rounded-b-xl transition-all ${selectedPlan === "discount"
-                                        ? "bg-[#36BC9F] text-white dark:text-black"
+                                        ? "bg-[#1F8A70] text-white dark:text-black"
                                         : "bg-transparent text-[#13627D] dark:text-[#adaaaa]"
                                         }`}
                                 >
@@ -381,7 +390,7 @@ function SalesPage() {
                                 ✅ Risk-Free: Backed by 60-Day Money-Back Guarantee
                             </div>
 
-                            <button className="mt-4 w-full relative md:rounded-xl rounded-lg bg-[#36BC9F] text-white py-3 md:text-lg font-semibold transition-all duration-200 hover:bg-[#2ca98e]"
+                            <button className="mt-4 w-full relative md:rounded-xl rounded-lg bg-[#1F8A70] text-white py-3 md:text-lg font-semibold transition-all duration-200 hover:bg-[#2ca98e]"
                                 onClick={() => alert(
                                     `Thank you for continuing with the ${selectedPlan === "discount" ? "1 Payment" : "3 Payments"
                                     } option!`
@@ -433,27 +442,27 @@ function SalesPage() {
                                 Your subscription will be bound by our{" "}
                                 <a
                                     href="#"
-                                    className="text-[#F75950] underline cursor-pointer"
+                                    className="inline-flex items-center px-2 py-2 text-[#F75950] underline"
                                 >
                                     Terms and Privacy Policy
-                                </a>.
+                                </a>
                             </p>
 
                             <p className="text-[#13556F] dark:text-[#adaaaa] text-md my-4">
                                 If you would like a refund for any reason, call{" "}
                                 <a
                                     href="#"
-                                    className="text-[#F75950] underline cursor-pointer"
+                                    className="inline-flex items-center px-2 py-2 text-[#F75950] underline"
                                 >
                                     1-800-695-5045
                                 </a>{" "}
                                 or email{" "}
                                 <a
                                     href="#"
-                                    className="text-[#F75950] underline cursor-pointer"
+                                    className="inline-flex items-center px-2 py-2 text-[#F75950] underline"
                                 >
                                     support@myketoslim.com
-                                </a>.
+                                </a>
                             </p>
                         </div>
                     </div>

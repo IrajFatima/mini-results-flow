@@ -25,10 +25,9 @@ function FormSubmissionCard({
                         Submission ID
                     </p>
 
-                    <p className="font-semibold text-black dark:text-white break-all">
-                        {form.id}
+                    <p className="font-semibold text-black dark:text-white">
+                        #{form.id.slice(0, 8).toUpperCase()}
                     </p>
-
                     <p className="mt-2 text-sm text-[#13627D] dark:text-[#9FA6A9]">
                         Submitted on
                     </p>
@@ -45,7 +44,7 @@ function FormSubmissionCard({
                             BMI
                         </p>
 
-                        <p className="text-xl font-semibold text-[#36BC9F]">
+                        <p className="text-xl font-semibold text-[#1F8A70] dark:text-[#36BC9F]">
                             {form.bmi}
                         </p>
                     </div>
@@ -55,7 +54,7 @@ function FormSubmissionCard({
                             Body Fat
                         </p>
 
-                        <p className="text-xl font-semibold text-[#36BC9F]">
+                        <p className="text-xl font-semibold text-[#1F8A70] dark:text-[#36BC9F]">
                             {form.bodyFatPercent}%
                         </p>
                     </div>
@@ -65,7 +64,7 @@ function FormSubmissionCard({
                             Calories
                         </p>
 
-                        <p className="text-xl font-semibold text-[#36BC9F]">
+                        <p className="text-xl font-semibold text-[#1F8A70] dark:text-[#36BC9F]">
                             {form.calorieTarget}
                         </p>
                     </div>
@@ -75,7 +74,7 @@ function FormSubmissionCard({
             {/* Expand Button */}
             <button
                 onClick={() => setExpanded((prev) => !prev)}
-                className="mt-5 w-full flex justify-center items-center gap-2 rounded-lg border border-[#36BC9F] py-2 font-medium text-[#36BC9F] hover:bg-[#36BC9F] hover:text-white transition"
+                className="mt-5 w-full flex justify-center items-center gap-2 rounded-lg border border-[#1F8A70] dark:border-[#36BC9F] py-2 font-medium text-[#1F8A70] dark:text-[#36BC9F] hover:bg-[#1F8A70] hover:text-white transition"
             >
                 {expanded ? (
                     <>
@@ -127,7 +126,7 @@ function FormSubmissionCard({
 
                             <Metric
                                 title="Weight Loss Rate"
-                                value={`${form.weightLossRate} kg/week`}
+                                value={`${form.weightLossRate} lbs /week`}
                             />
 
                             <Metric
@@ -142,21 +141,30 @@ function FormSubmissionCard({
                         </div>
 
                         {/* Actions */}
-                        <div className="flex flex-col md:flex-row gap-3 mt-8">
+                        <div className="flex gap-3 mt-8">
                             <button
                                 onClick={() => onViewResults(form.id)}
-                                className="flex-1 flex justify-center items-center gap-2 rounded-lg bg-[#36BC9F] text-white py-3 font-semibold hover:bg-[#2ca98e] transition"
+                                className="flex-1 flex justify-center items-center gap-2 rounded-lg bg-[#1F8A70] text-white py-3 font-semibold hover:bg-[#2ca98e] transition"
                             >
                                 <FaEye />
                                 View Results
                             </button>
 
                             <button
-                                onClick={() => onDelete(form.id)}
-                                className="flex-1 flex justify-center items-center gap-2 rounded-lg bg-[#F75950] text-white py-3 font-semibold hover:bg-[#dd4c43] transition"
+                                onClick={() => {
+                                    const confirmed = window.confirm(
+                                        "Are you sure you want to delete this submission? This action cannot be undone."
+                                    );
+
+                                    if (confirmed) {
+                                        onDelete(form.id);
+                                    }
+                                }}
+                                title="Delete Submission"
+                                aria-label="Delete Submission"
+                                className="h-12 w-12 flex items-center justify-center rounded-lg bg-[#F75950] text-white hover:bg-[#dd4c43] transition flex-shrink-0"
                             >
                                 <FaTrash />
-                                Delete
                             </button>
                         </div>
                     </motion.div>

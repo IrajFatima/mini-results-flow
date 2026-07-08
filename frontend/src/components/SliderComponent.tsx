@@ -37,7 +37,7 @@ function Slider({
           name={name}
           onChange={onChange}
           value={value || min}
-          className="flex-1 accent-[#36BC9F]"
+          className="flex-1 accent-[#1F8A70]"
         />
 
         <span className="text-xl w-10 text-right">

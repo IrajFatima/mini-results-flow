@@ -122,7 +122,7 @@ function LoginPage() {
                             style={{
                                 width: 75,
                                 height: 75,
-                                background: "#36BC9F",
+                                background: "#1F8A70",
                             }}
                         >
                             <FaUserShield
@@ -141,26 +141,29 @@ function LoginPage() {
                     </div>
 
                     {/* Form */}
-                    <form onSubmit={handleSubmit} noValidate>
+                    {/* disabled the autofilling of credentials */}
+                    <form onSubmit={handleSubmit} noValidate autoComplete="off">
 
                         {/* Email */}
                         <div className="mb-4">
                             <label className="block font-semibold text-[#183B49] dark:text-white mb-1.5">
                                 Email Address
+                                <span className="highlight"> *</span>
                             </label>
 
                             <div className="flex items-center">
-                                <span className="bg-white dark:bg-[#2f3335] border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-lg px-3 py-2.5 flex items-center justify-center">
-                                    <FaEnvelope color="#36BC9F" />
+                                <span className="h-12 bg-white dark:bg-[#2f3335] border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-lg px-3 py-2.5 flex items-center justify-center">
+                                    <FaEnvelope color="#1F8A70" />
                                 </span>
 
                                 <input
                                     type="email"
-                                    className="flex-1 border border-l-0 border-gray-300 dark:border-gray-600 rounded-r-lg px-3 py-2.5 bg-white dark:bg-[#2f3335] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#36BC9F] focus:border-transparent"
+                                    className="h-12 flex-1 border border-l-0 border-gray-300 dark:border-gray-600 rounded-r-lg px-3 py-2.5 bg-white dark:bg-[#2f3335] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#1F8A70] focus:border-transparent"
                                     placeholder="Enter your email"
                                     name="email"
                                     value={formData.email}
                                     onChange={handleChange}
+                                    autoComplete="off"
                                 />
                             </div>
 
@@ -175,20 +178,22 @@ function LoginPage() {
                         <div className="mb-2">
                             <label className="block font-semibold text-[#183B49] dark:text-white mb-1.5">
                                 Password
+                                <span className="highlight"> *</span>
                             </label>
 
                             <div className="flex items-center">
-                                <span className="bg-white dark:bg-[#2f3335] border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-lg px-3 py-2.5 flex items-center justify-center">
-                                    <FaLock color="#36BC9F" />
+                                <span className="h-12 bg-white dark:bg-[#2f3335] border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-lg px-3 py-2.5 flex items-center justify-center">
+                                    <FaLock color="#1F8A70" />
                                 </span>
 
                                 <input
                                     type="password"
-                                    className="flex-1 border border-l-0 border-gray-300 dark:border-gray-600 rounded-r-lg px-3 py-2.5 bg-white dark:bg-[#2f3335] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#36BC9F] focus:border-transparent"
+                                    className="h-12 flex-1 border border-l-0 border-gray-300 dark:border-gray-600 rounded-r-lg px-3 py-2.5 bg-white dark:bg-[#2f3335] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#1F8A70] focus:border-transparent"
                                     placeholder="Enter your password"
                                     name="password"
                                     value={formData.password}
                                     onChange={handleChange}
+                                    autoComplete="off"
                                 />
                             </div>
 
@@ -202,7 +207,7 @@ function LoginPage() {
                         <div className="text-end mb-5">
                             <button
                                 type="button"
-                                className="text-[#36BC9F] hover:underline bg-transparent border-0 p-0 text-sm font-medium cursor-pointer"
+                                className="text-[#1F8A70] hover:underline bg-transparent border-0 p-0 text-sm font-medium cursor-pointer"
                             >
                                 Forgot Password?
                             </button>
@@ -212,7 +217,7 @@ function LoginPage() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-[#36BC9F] text-white font-semibold py-3 px-4 rounded-xl hover:bg-[#2da088] transition-colors relative disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="w-full bg-[#1F8A70] text-white font-semibold py-3 px-4 rounded-xl hover:bg-[#2da088] transition-colors relative disabled:opacity-70 disabled:cursor-not-allowed"
                         >
                             {loading ? "Signing In..." : "Login"}
 
@@ -240,7 +245,7 @@ function LoginPage() {
                         {/* Guest or Ananymous users */}
                         <button
                             type="button"
-                            className="w-full py-3 px-4 font-semibold rounded-xl border-2 border-[#36BC9F] text-[#36BC9F] hover:bg-[#36BC9F] hover:text-white transition-colors"
+                            className="w-full py-3 px-4 font-semibold rounded-xl border-2 border-[#1F8A70] text-[#1F8A70] hover:bg-[#1F8A70] hover:text-white transition-colors"
                             onClick={() => navigate("/")}
                         >
                             Continue as Guest
@@ -256,7 +261,7 @@ function LoginPage() {
 
                         <Link
                             to="/signup"
-                            className="ml-2 font-semibold text-[#36BC9F] hover:underline"
+                            className="ml-2 font-semibold text-[#1F8A70] hover:underline"
                         >
                             Create Account
                         </Link>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { HiMenu } from "react-icons/hi";
 import { setTheme } from "../utils/theme";
+import { Link } from "react-router-dom";
 
 type HeaderProps = {
   onMenuClick: () => void;
@@ -29,25 +30,24 @@ function Header({ onMenuClick }: HeaderProps) {
         </button>
 
         <div className="flex-1 flex justify-center pt-[76px]">
-          <img
-            src={isDark ? "/logoDark.png" : "/logo.png"}
-            alt="Logo"
-          />
+          <Link to="/" aria-label="Go to home page">
+            <img src="/logo.png" alt="" />
+          </Link>
         </div>
 
         <button
           onClick={toggleTheme}
           className="
-            fixed
+            absolute
             top-6
             right-8
-            z-50
             px-4 py-2
             bg-white dark:bg-[#2D3133]
             border border-gray-300 dark:border-gray-700
             rounded-lg
             text-black dark:text-white
-            hover:bg-[#36BC9F]
+            hover:bg-[#1F8A70]
+            hover:text-white
             transition
           "
         >

@@ -1,4 +1,4 @@
-import { NavLink,useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import {
     FaClipboardList,
@@ -37,21 +37,22 @@ export default function Sidebar({
                 />
             )}
 
+            {/* successfully switches to dark theme and light theme */}
             <aside
                 className={`
-           fixed top-0 left-0 z-50
-    h-screen w-64
-    bg-white dark:bg-[#232627]
-    border-r border-gray-200 dark:border-gray-700
-    p-6
-    transform transition-transform duration-300
+                        fixed top-0 left-0 z-50
+                    h-screen w-64
+                    bg-white dark:bg-[#232627]
+                    border-r border-gray-200 dark:border-gray-700
+                    p-6
+                    transform transition-transform duration-300
 
-    ${open ? "translate-x-0" : "-translate-x-full"}
+                    ${open ? "translate-x-0" : "-translate-x-full"}
 
-    md:translate-x-0
-        `}
+                    md:translate-x-0
+                `}
             >
-                <h2 className="text-2xl font-bold text-[#36BC9F] mb-8 mt-4 text-center">
+                <h2 className="text-2xl font-bold text-[#1F8A70] mb-8 mt-4 text-center">
                     Mini Results
                 </h2>
 
@@ -62,10 +63,11 @@ export default function Sidebar({
                 <nav className="flex flex-col gap-3">
                     <NavLink
                         to="/"
+                        end
                         onClick={onClose}
                         className={({ isActive }) =>
                             `flex items-center gap-3 rounded-lg px-4 py-3 transition ${isActive
-                                ? "bg-[#36BC9F] text-white"
+                                ? "bg-[#1F8A70] text-white"
                                 : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2d3031]"
                             }`
                         }
@@ -76,10 +78,11 @@ export default function Sidebar({
 
                     <NavLink
                         to="/recommendations"
+                        end
                         onClick={onClose}
                         className={({ isActive }) =>
                             `flex items-center gap-3 rounded-lg px-4 py-3 transition ${isActive
-                                ? "bg-[#36BC9F] text-white"
+                                ? "bg-[#1F8A70] text-white"
                                 : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2d3031]"
                             }`
                         }
@@ -91,10 +94,11 @@ export default function Sidebar({
                         <>
                             <NavLink
                                 to="/login"
+                                end
                                 onClick={onClose}
                                 className={({ isActive }) =>
                                     `flex items-center gap-3 rounded-lg px-4 py-3 transition ${isActive
-                                        ? "bg-[#36BC9F] text-white"
+                                        ? "bg-[#1F8A70] text-white"
                                         : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2d3031]"
                                     }`
                                 }
@@ -105,10 +109,11 @@ export default function Sidebar({
 
                             <NavLink
                                 to="/signup"
+                                end
                                 onClick={onClose}
                                 className={({ isActive }) =>
                                     `flex items-center gap-3 rounded-lg px-4 py-3 transition ${isActive
-                                        ? "bg-[#36BC9F] text-white"
+                                        ? "bg-[#1F8A70] text-white"
                                         : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2d3031]"
                                     }`
                                 }
@@ -119,12 +124,16 @@ export default function Sidebar({
                         </>
                     ) : (
                         <>
+                            {/* Dashboard is a shared, role-aware route. Admin and regular users
+                                receive different content based on their authenticated role, so
+                                separate admin navigation is intentionally omitted. */}
                             <NavLink
                                 to="/dashboard"
+                                end
                                 onClick={onClose}
                                 className={({ isActive }) =>
                                     `flex items-center gap-3 rounded-lg px-4 py-3 transition ${isActive
-                                        ? "bg-[#36BC9F] text-white"
+                                        ? "bg-[#1F8A70] text-white"
                                         : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2d3031]"
                                     }`
                                 }

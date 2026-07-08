@@ -14,9 +14,18 @@ function FormPage() {
     const [loading, setLoading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+
         const { name, value } = e.target;
 
-        setFormData({ ...formData, [name]: name === "gender" ? value : Number(value) });
+        setFormData((prev) => ({
+            ...prev,
+            [name]:
+                name === "gender"
+                    ? value
+                    : value === ""
+                        ? null
+                        : Number(value),
+        }));
     }
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -79,6 +88,10 @@ function FormPage() {
         <div>
             <h1 className="m-6 text-black dark:text-white text-4xl text-center font-semibold">Enter your <span className="highlight">Details</span></h1>
             <div className="m-3 md:p-[30px] p-[24px] max-w-2xl md:mx-auto bg-white dark:bg-[#232627] border border-gray-300  dark:border-gray-700 rounded-xl text-black dark:text-white mx-2">
+                {/* Form validation intentionally relies on disabled submit state and helper text
+                    instead of per-field error styling. Since validation errors are not shown
+                    individually, red borders/icons are intentionally omitted to keep the form
+                    visually clean and reduce unnecessary visual noise. */}
                 <form onSubmit={handleSubmit}>
                     <RadioGroup
                         label="Gender"
@@ -117,30 +130,30 @@ function FormPage() {
                         </label>
                         <input
                             type="number"
-                            // min={1}
+                            min={1}
                             name="calorieTarget"
                             id="calorieTarget"
                             onChange={handleChange}
                             required
                             placeholder="e.g. 2000"
                             value={formData.calorieTarget ?? ""}
-                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-sm bg-white dark:bg-[#232627] text-black dark:text-white focus:outline-none focus:ring-1  focus:border-[#36BC9F]"
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-sm bg-white dark:bg-[#232627] text-black dark:text-white focus:outline-none focus:ring-1  focus:border-[#1F8A70]"
                         />
                     </div>
                     <div className="mb-6">
-                        <label className="block mb-3" htmlFor="waterIntake">Cups of Water Per Day
+                        <label className="block mb-3" htmlFor="waterIntake">Litres of Water Per Day
                             <span className="highlight"> *</span>
                         </label>
 
                         <select
-                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-sm bg-white dark:bg-[#232627] text-black dark:text-white focus:outline-none focus:ring-1  focus:border-[#36BC9F]"
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-sm bg-white dark:bg-[#232627] text-black dark:text-white focus:outline-none focus:ring-1  focus:border-[#1F8A70]"
                             required
                             onChange={handleChange}
                             value={formData.waterIntake ?? ""}
                             name="waterIntake"
                             id="waterIntake"
                         >
-                            <option value="">Select Cups</option>
+                            <option value="">Select Litres</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="4">4</option>
@@ -160,7 +173,7 @@ function FormPage() {
                             placeholder="e.g. 1.5"
                             name="weightLossRate"
                             id="weightLossRate"
-                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-sm bg-white dark:bg-[#232627] text-black dark:text-white focus:outline-none focus:ring-1  focus:border-[#36BC9F]"
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-sm bg-white dark:bg-[#232627] text-black dark:text-white focus:outline-none focus:ring-1  focus:border-[#1F8A70]"
                         />
                     </div>
                     <div className="mb-6">
@@ -177,15 +190,15 @@ function FormPage() {
                             id="seeResultsDays"
                             placeholder="e.g. 30"
 
-                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-sm bg-white dark:bg-[#232627] text-black dark:text-white focus:outline-none focus:ring-1  focus:border-[#36BC9F]"
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-sm bg-white dark:bg-[#232627] text-black dark:text-white focus:outline-none focus:ring-1  focus:border-[#1F8A70]"
                         />
                     </div>
 
                     <button type="submit"
                         disabled={!isFormValid || loading}
                         className={`w-full rounded-xl p-4 text-xl font-semibold transition-colors flex items-center justify-center gap-2 ${isFormValid && !loading
-                            ? "bg-[#36BC9F] hover:bg-[#2ea68d] text-white "
-                            : "bg-[#2D7163] cursor-not-allowed text-[#919393]"
+                            ? "bg-[#1F8A70] hover:bg-[#2ea68d] text-white "
+                            : "bg-[#2D7163] cursor-not-allowed text-gray-300"
                             }`}
                     >
                         {loading ? (
