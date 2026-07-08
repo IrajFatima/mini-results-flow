@@ -31,7 +31,7 @@ function Header({ onMenuClick }: HeaderProps) {
 
         <div className="flex-1 flex justify-center pt-[76px]">
           <Link to="/" aria-label="Go to home page">
-            {isDark ?
+            {!isDark ?
               <img src="/logo.png" alt="" /> : <img src="/logoDark.png" alt="" />
             }
           </Link>
