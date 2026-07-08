@@ -30,6 +30,9 @@ function SalesPage() {
         return () => clearInterval(timer);
     }, []);
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    useEffect(() => {
         const handleScroll = () => {
             if (!planRef.current) return;
 
@@ -307,8 +310,8 @@ function SalesPage() {
                             <div
                                 onClick={() => setSelectedPlan("installments")}
                                 className={`mt-3 rounded-xl p-4 cursor-pointer transition-all duration-200 border-2 ${selectedPlan === "installments"
-                                        ? "border-[#1F8A70] bg-[#F8F4F4] dark:bg-[#181A1B] shadow-xl ring-2 ring-[#1F8A70]/20 scale-[1.02]"
-                                        : "border-gray-200 dark:border-gray-700 bg-white dark:bg-transparent"
+                                    ? "border-[#1F8A70] bg-[#F8F4F4] dark:bg-[#181A1B] shadow-xl ring-2 ring-[#1F8A70]/20 scale-[1.02]"
+                                    : "border-gray-200 dark:border-gray-700 bg-white dark:bg-transparent"
                                     }`}
                             >
                                 <div className="flex justify-between items-center gap-4">
