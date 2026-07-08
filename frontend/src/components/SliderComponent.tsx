@@ -20,14 +20,14 @@ function Slider({
   onChange,
 }: SliderProps) {
   return (
-    <div className="mb-7">
+    <div>
 
-      <label className="block mb-2" htmlFor={name}>
+      <label className="block mb-2 text-sm font-semibold tracking-wide text-[#183B49] dark:text-white" htmlFor={name}>
         {label}
         {required && <span className="highlight"> *</span>}
       </label>
 
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-4">
 
         <input
           id={name}
@@ -37,10 +37,10 @@ function Slider({
           name={name}
           onChange={onChange}
           value={value || min}
-          className="flex-1 accent-[#36BC9F]"
+          className="h-2 flex-1 cursor-pointer accent-[#1F8A70]"
         />
 
-        <span className="text-xl w-10 text-right">
+        <span className="min-w-[3rem] rounded-lg bg-[#1F8A70]/10 px-3 py-1 text-center text-sm font-semibold text-[#1F8A70] dark:bg-[#1F8A70]/20 dark:text-white">
           {value}
         </span>
 

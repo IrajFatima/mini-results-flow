@@ -1,3 +1,4 @@
+// theme switching is consistent across all pages
 export const setTheme = (theme: "light" | "dark") => {
   localStorage.setItem("theme", theme);
 

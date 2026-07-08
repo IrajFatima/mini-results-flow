@@ -108,21 +108,21 @@ function LoginPage() {
     return (
         <div className="min-h-screen flex items-center justify-center px-3 py-5">
             <motion.div
-                initial={{ opacity: 0, y: 25 }}
+                initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35 }}
-                className="w-full max-w-[470px]"
+                className="w-full max-w-2xl"
             >
-                <div className="bg-white dark:bg-[#232627] rounded-2xl shadow-lg p-4 md:p-8">
+                <div className="bg-white dark:bg-[#232627] border shadow-sm hover:shadow-md transition-shadow duration-300 border-gray-300 dark:border-gray-700 rounded-2xl p-[24px] md:p-[30px]">
 
                     {/* Header */}
-                    <div className="text-center mb-6">
+                    <div className="text-center mb-8">
                         <div
-                            className="mx-auto mb-3 flex items-center justify-center rounded-full"
+                            className="mx-auto mb-5 flex items-center justify-center rounded-full shadow-lg shadow-[#1F8A70]/20 ring-4 ring-[#1F8A70]/10"
                             style={{
                                 width: 75,
                                 height: 75,
-                                background: "#36BC9F",
+                                background: "#1F8A70",
                             }}
                         >
                             <FaUserShield
@@ -131,36 +131,44 @@ function LoginPage() {
                             />
                         </div>
 
-                        <h2 className="text-2xl font-bold text-[#183B49] dark:text-white">
+                        <h2 className="text-3xl font-bold tracking-tight text-[#183B49] dark:text-white">
                             Welcome Back
                         </h2>
 
-                        <p className="text-[#13627D] dark:text-[#bdbdbd] mt-2 text-sm">
+                        <p className="mt-3 text-sm leading-6 text-[#13627D] dark:text-[#bdbdbd] max-w-xs mx-auto">
                             Sign in to access your previous assessments
                         </p>
                     </div>
 
                     {/* Form */}
-                    <form onSubmit={handleSubmit} noValidate>
+                    {/* disabled the autofilling of credentials */}
+                    <form
+                        onSubmit={handleSubmit}
+                        noValidate
+                        autoComplete="off"
+                        className="space-y-6"
+                    >
 
                         {/* Email */}
-                        <div className="mb-4">
-                            <label className="block font-semibold text-[#183B49] dark:text-white mb-1.5">
+                        <div>
+                            <label className="block mb-2 text-sm font-semibold tracking-wide text-[#183B49] dark:text-white">
                                 Email Address
+                                <span className="highlight"> *</span>
                             </label>
 
-                            <div className="flex items-center">
-                                <span className="bg-white dark:bg-[#2f3335] border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-lg px-3 py-2.5 flex items-center justify-center">
-                                    <FaEnvelope color="#36BC9F" />
+                            <div className="group flex items-center rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#2f3335] transition-all duration-200 focus-within:border-[#1F8A70] focus-within:ring-2 focus-within:ring-[#1F8A70]/20">
+                                <span className="flex h-12 items-center justify-center rounded-l-xl px-4 text-gray-500 transition-colors group-focus-within:text-[#1F8A70]">
+                                    <FaEnvelope />
                                 </span>
 
                                 <input
                                     type="email"
-                                    className="flex-1 border border-l-0 border-gray-300 dark:border-gray-600 rounded-r-lg px-3 py-2.5 bg-white dark:bg-[#2f3335] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#36BC9F] focus:border-transparent"
+                                    className="h-12 w-full rounded-r-xl bg-transparent px-4 text-gray-900 dark:text-white outline-none"
                                     placeholder="Enter your email"
                                     name="email"
                                     value={formData.email}
                                     onChange={handleChange}
+                                    autoComplete="off"
                                 />
                             </div>
 
@@ -172,23 +180,25 @@ function LoginPage() {
                         </div>
 
                         {/* Password */}
-                        <div className="mb-2">
-                            <label className="block font-semibold text-[#183B49] dark:text-white mb-1.5">
+                        <div>
+                            <label className="block mb-2 text-sm font-semibold tracking-wide text-[#183B49] dark:text-white">
                                 Password
+                                <span className="highlight"> *</span>
                             </label>
 
-                            <div className="flex items-center">
-                                <span className="bg-white dark:bg-[#2f3335] border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-lg px-3 py-2.5 flex items-center justify-center">
-                                    <FaLock color="#36BC9F" />
+                            <div className="group flex items-center rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#2f3335] transition-all duration-200 focus-within:border-[#1F8A70] focus-within:ring-2 focus-within:ring-[#1F8A70]/20">
+                                <span className="flex h-12 items-center justify-center rounded-l-xl px-4 text-gray-500 transition-colors group-focus-within:text-[#1F8A70]">
+                                    <FaLock />
                                 </span>
 
                                 <input
                                     type="password"
-                                    className="flex-1 border border-l-0 border-gray-300 dark:border-gray-600 rounded-r-lg px-3 py-2.5 bg-white dark:bg-[#2f3335] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#36BC9F] focus:border-transparent"
+                                    className="h-12 w-full rounded-r-xl bg-transparent px-4 text-gray-900 dark:text-white outline-none"
                                     placeholder="Enter your password"
                                     name="password"
                                     value={formData.password}
                                     onChange={handleChange}
+                                    autoComplete="off"
                                 />
                             </div>
 
@@ -199,20 +209,13 @@ function LoginPage() {
                             )}
                         </div>
 
-                        <div className="text-end mb-5">
-                            <button
-                                type="button"
-                                className="text-[#36BC9F] hover:underline bg-transparent border-0 p-0 text-sm font-medium cursor-pointer"
-                            >
-                                Forgot Password?
-                            </button>
-                        </div>
-
                         {/* Login Button */}
-                        <button
+                        <motion.button
+                            whileHover={{ scale: 1.004 }}
+                            whileTap={{ scale: 0.98 }}
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-[#36BC9F] text-white font-semibold py-3 px-4 rounded-xl hover:bg-[#2da088] transition-colors relative disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="relative w-full rounded-xl bg-[#1F8A70] px-4 py-3 font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#176F5B] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-70"
                         >
                             {loading ? "Signing In..." : "Login"}
 
@@ -226,37 +229,38 @@ function LoginPage() {
                                     }}
                                 />
                             )}
-                        </button>
+                        </motion.button>
 
                         {/* Divider */}
                         <div className="flex items-center my-5">
                             <hr className="flex-1 border-gray-300 dark:border-gray-600" />
-                            <span className="mx-3 text-gray-500 text-sm">
+                            <span className="mx-4 text-xs font-semibold uppercase tracking-[0.25em] text-gray-500">
                                 OR
                             </span>
                             <hr className="flex-1 border-gray-300 dark:border-gray-600" />
                         </div>
 
                         {/* Guest or Ananymous users */}
-                        <button
-                            type="button"
-                            className="w-full py-3 px-4 font-semibold rounded-xl border-2 border-[#36BC9F] text-[#36BC9F] hover:bg-[#36BC9F] hover:text-white transition-colors"
+                        <motion.button
+                            whileHover={{ scale: 1.004 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="w-full rounded-xl border-2 border-[#1F8A70] px-4 py-3 font-semibold text-[#1F8A70] shadow-sm transition-all duration-200 hover:bg-[#1F8A70] hover:text-white hover:shadow-md"
                             onClick={() => navigate("/")}
                         >
                             Continue as Guest
-                        </button>
+                        </motion.button>
 
                     </form>
 
                     {/* Footer */}
-                    <div className="text-center mt-5">
+                    <div className="mt-8 border-t border-gray-200 pt-6 text-center dark:border-gray-700">
                         <span className="text-[#13627D] dark:text-[#bdbdbd] text-sm">
                             Don't have an account?
                         </span>
 
                         <Link
                             to="/signup"
-                            className="ml-2 font-semibold text-[#36BC9F] hover:underline"
+                            className="ml-2 font-semibold text-[#1F8A70] hover:underline"
                         >
                             Create Account
                         </Link>

@@ -13,7 +13,7 @@ User Information:
 - Body Fat Percentage: ${user.bodyFatPercent}%
 - Daily Calorie Target: ${user.calorieTarget} kcal
 - Daily Water Intake: ${user.waterIntake} liters
-- Desired Weight Loss Rate: ${user.weightLossRate} kg/week
+- Desired Weight Loss Rate: ${user.weightLossRate} lbs /week
 - Goal Timeline: ${user.seeResultsDays} days
 
 Requirements:
